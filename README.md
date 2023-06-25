@@ -4,6 +4,8 @@ CiGA Game Jam 2023
 
 2023年7月7日 至 2023年7月9日
 
+![banner](https://gmhub.com/assets/img/events/cgj/2023/banner.jpg)
+
 #### 开发工具
 
 * Unity3D 2022.3.3f1
