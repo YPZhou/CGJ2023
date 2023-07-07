@@ -28,6 +28,6 @@ namespace CGJ2023
 			}
 		}
 
-		SpriteRenderer spriteRenderer;
+		protected SpriteRenderer spriteRenderer;
 	}
 }
