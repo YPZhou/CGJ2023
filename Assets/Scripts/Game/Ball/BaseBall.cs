@@ -1,15 +1,6 @@
-using UnityEngine;
-
 namespace CGJ2023
 {
-	public abstract class BaseBall : MonoBehaviour
+	public abstract class BaseBall : BaseGameObject
 	{
-		void Start()
-		{
-		}
-
-		void Update()
-		{
-		}
 	}
 }

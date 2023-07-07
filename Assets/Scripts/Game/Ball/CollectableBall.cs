@@ -1,3 +1,6 @@
+using UnityEngine;
+using static CGJ2023.Enums;
+
 namespace CGJ2023
 {
 	/// <summary>
@@ -5,14 +8,15 @@ namespace CGJ2023
 	/// </summary>
 	public class CollectableBall : BaseBall
 	{
-		void Start()
+		protected override void StartCore()
 		{
-		
 		}
 
-		void Update()
+		protected override void UpdateCore()
 		{
-		
 		}
+
+		[SerializeField]
+		BallColor ballColor;
 	}
 }

@@ -5,14 +5,12 @@ namespace CGJ2023
 	/// </summary>
 	public class PlayerBall : BaseBall
 	{
-		void Start()
+		protected override void StartCore()
 		{
-		
 		}
 
-		void Update()
+		protected override void UpdateCore()
 		{
-		
 		}
 	}
 }

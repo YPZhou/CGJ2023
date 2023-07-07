@@ -5,11 +5,11 @@ namespace CGJ2023
 	/// </summary>
 	public class ClearAttachedBallItem : BaseItem
 	{
-		void Start()
+		protected override void StartCore()
 		{
 		}
 
-		void Update()
+		protected override void UpdateCore()
 		{
 		}
 	}
