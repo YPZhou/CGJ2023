@@ -1,3 +1,4 @@
+using CGJ2023.Item;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -9,7 +10,7 @@ namespace CGJ2023
 {
 	public class Room : MonoBehaviour
 	{
-        private static readonly System.Random random = new System.Random();
+        public static readonly System.Random random = new System.Random();
 
 		#region create balls
 		GameObject PlayerBall;
@@ -295,7 +296,7 @@ namespace CGJ2023
 		public BallColor ThemeColor
 		{
 			get => themeColor;
-			private set
+			set
 			{
 				if (themeColor != value)
 				{
