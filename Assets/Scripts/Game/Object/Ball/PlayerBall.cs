@@ -49,6 +49,7 @@ namespace CGJ2023
 				var color = ball.BallColor;
 				if (room.ThemeColor == color)
 				{
+					room.collectableBalls.Remove(colliderGameObject);
 					Destroy(colliderGameObject);
 				}
 				else
