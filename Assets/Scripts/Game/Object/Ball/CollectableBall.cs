@@ -52,13 +52,28 @@ namespace CGJ2023
 		public void AttachTo(BaseBall other)
 		{
 			transform.parent = other.transform;
-			transform.localPosition = transform.localPosition.normalized;
+			//transform.localPosition = transform.localPosition.normalized;
 			attachedBall = other;
 		}
 
 		BaseBall attachedBall;
 
 		public bool IsAttached => attachedBall != null;
+
+		void OnCollisionEnter2D(Collision2D collision)
+		{
+			var colliderGameObject = collision.gameObject;
+			var ball = colliderGameObject.GetComponent<CollectableBall>();
+
+			if (ball != null && BallColor == ball.BallColor)
+			{
+				var playerBall = GameObject.Find("PlayerBall")?.GetComponent<PlayerBall>();
+				if (playerBall != null)
+				{
+					ball.AttachTo(playerBall);
+				}
+			}
+		}
 
 		[SerializeField]
 		public BallColor BallColor;

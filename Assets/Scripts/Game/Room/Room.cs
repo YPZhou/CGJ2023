@@ -60,6 +60,7 @@ namespace CGJ2023
         {
 			var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Player.prefab", typeof(GameObject)) as GameObject;
 			PlayerBall = GameObject.Instantiate(collentableBallPrefab, new Vector2(0, 0), Quaternion.identity);
+			PlayerBall.name = "PlayerBall";
 		}
 
 		void InitAvailablePositions()
