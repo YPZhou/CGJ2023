@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static CGJ2023.Enums;
 
@@ -15,7 +16,14 @@ namespace CGJ2023
 
 		protected override void UpdateCore()
 		{
+			if (shouldDestroy)
+			{
+				room.collectableBalls.Remove(gameObject);
+				Destroy(gameObject);
+			}
+
 			SetSpriteColorToBallColor();
+			MarkForDestroy();
 			PushToAttachedBall();
 		}
 		 
@@ -35,6 +43,49 @@ namespace CGJ2023
 			}
 		}
 
+		void MarkForDestroy()
+		{
+			if (!shouldDestroy)
+			{
+				var adjacentBallsWithSameColor = new List<CollectableBall>();
+				for (var i = 0; i < room.collectableBalls.Count; i++)
+				{
+					var obj = room.collectableBalls[i];
+					if ((transform.position - obj.transform.position).sqrMagnitude <= 0.5f)
+					{
+						var ball = obj.GetComponent<CollectableBall>();
+						if (ball != null)
+						{
+							if (ball.BallColor == BallColor)
+							{
+								if (ball.shouldDestroy)
+								{
+									shouldDestroy = true;
+									break;
+								}
+								else
+								{
+									adjacentBallsWithSameColor.Add(ball);
+									if (adjacentBallsWithSameColor.Count >= 3)
+									{
+										shouldDestroy = true;
+										foreach (var adjacentBall in adjacentBallsWithSameColor)
+										{
+											adjacentBall.shouldDestroy = true;
+										}
+
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		bool shouldDestroy;	// mark for destroy in next frame
+
 		void PushToAttachedBall()
 		{
 			if (IsAttached && transform.localPosition.sqrMagnitude > 1f)
@@ -42,7 +93,7 @@ namespace CGJ2023
 				var rigidBody = GetComponent<Rigidbody2D>();
 				if (rigidBody != null)
 				{
-					rigidBody.AddForce(-transform.localPosition.normalized * 0.1f);
+					rigidBody.AddForce(-transform.localPosition * 0.1f);
 				}
 
 				transform.localRotation = Quaternion.identity;
@@ -65,7 +116,9 @@ namespace CGJ2023
 			var colliderGameObject = collision.gameObject;
 			var ball = colliderGameObject.GetComponent<CollectableBall>();
 
-			if (ball != null && BallColor == ball.BallColor)
+			if (ball != null
+				&& BallColor == ball.BallColor
+				&& (IsAttached || ball.IsAttached))
 			{
 				var playerBall = GameObject.Find("PlayerBall")?.GetComponent<PlayerBall>();
 				if (playerBall != null)

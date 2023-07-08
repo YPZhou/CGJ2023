@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace CGJ2023
 {
 	/// <summary>
-	/// Íæ¼Ò½ÇÉ«Çò
+	/// ï¿½ï¿½Ò½ï¿½É«ï¿½ï¿½
 	/// </summary>
 	public class PlayerBall : BaseBall
 	{
@@ -50,6 +50,7 @@ namespace CGJ2023
 				if (room.ThemeColor == color)
 				{
 					room.OnCollectBall(color);
+					room.collectableBalls.Remove(colliderGameObject);
 					Destroy(colliderGameObject);
 				}
 				else
