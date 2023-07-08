@@ -40,13 +40,19 @@ namespace CGJ2023
 
 		void OnTriggerEnter2D(Collider2D collider)
 		{
-			var ball = collider.gameObject.GetComponent<CollectableBall>();
-			var item = collider.gameObject.GetComponent<BaseItem>();
+			var colliderGameObject = collider.gameObject;
+			var ball = colliderGameObject.GetComponent<CollectableBall>();
+			var item = colliderGameObject.GetComponent<BaseItem>();
 
 			if (ball != null)
 			{
 				var color = ball.BallColor;
-				Destroy(collider.gameObject);
+				var ballTransform = colliderGameObject.transform;
+
+				ballTransform.parent = transform;
+				ballTransform.localPosition = ballTransform.localPosition.normalized;
+				
+				//Destroy(collider.gameObject);
 			}
 			else if (item != null)
 			{
