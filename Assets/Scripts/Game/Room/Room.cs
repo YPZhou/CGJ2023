@@ -6,13 +6,22 @@ namespace CGJ2023
 {
 	public class Room : MonoBehaviour
 	{
+
+		#region create balls
+		const int birthRate = 5;
+		const int initBirthCount = 10;
+		const int birthRateChangeDT = 30;
+		const int birthCountChangeDelta = 10;
+		int birthTimes = 0;
+		float spendTime = 0;
+		#endregion
+		
 		void Start()
 		{
 			themeColor = BallColor.Red;
 			Score = 0;
 			ThemeColor = 0;
-
-			HasChanges = false;
+            HasChanges = false;
 		}
 
 		void Update()
@@ -22,6 +31,39 @@ namespace CGJ2023
 				SceneManager.LoadScene("ResultScene");
 			}
 		}
+
+        void FixedUpdate()
+        {
+			TryCreateBalls();
+        }
+
+		#region create balls
+		
+		void TryCreateBalls()
+        {
+			spendTime += Time.deltaTime;
+			if (birthTimes < (spendTime / birthRate))
+            {
+				DoCreateBalls();
+            }
+		}
+		
+		void DoCreateBalls()
+        {
+			birthTimes += 1;
+			Debug.Log(string.Format("Create Balls, count: {0}", CurrentBirthRate));
+        }
+
+		int CurrentBirthRate
+		{
+			get
+			{
+				return ((int)(spendTime / birthRateChangeDT)) * birthCountChangeDelta + initBirthCount;
+			}
+		}
+			
+		#endregion
+
 
 		public BallColor ThemeColor
 		{
