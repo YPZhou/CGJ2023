@@ -32,13 +32,13 @@ namespace CGJ2023
 			switch (BallColor)
 			{
 				case BallColor.Red:
-					spriteRenderer.color = Color.red;
+					spriteRenderer.color = new Color(1f, 0f, 0f, spriteRenderer.color.a);
 					break;
 				case BallColor.Blue:
-					spriteRenderer.color = Color.blue;
+					spriteRenderer.color = new Color(0f, 0f, 1f, spriteRenderer.color.a);
 					break;
 				case BallColor.Green:
-					spriteRenderer.color = Color.green;
+					spriteRenderer.color = new Color(0f, 1f, 0f, spriteRenderer.color.a);
 					break;
 			}
 		}
@@ -88,12 +88,18 @@ namespace CGJ2023
 
 		void PushToAttachedBall()
 		{
-			if (IsAttached && transform.localPosition.sqrMagnitude > 1f)
+			if (IsAttached && transform.localPosition.sqrMagnitude > 0.5f)
 			{
 				var rigidBody = GetComponent<Rigidbody2D>();
 				if (rigidBody != null)
 				{
-					rigidBody.AddForce(-transform.localPosition * 0.2f);
+					var forceFactor = 0.2f;
+					if (transform.localPosition.sqrMagnitude > 1f)
+					{
+						forceFactor = 1f;
+					}
+
+					rigidBody.AddForce(-transform.localPosition * forceFactor);
 				}
 
 				transform.localRotation = Quaternion.identity;
@@ -109,6 +115,29 @@ namespace CGJ2023
 		BaseBall attachedBall;
 
 		public bool IsAttached => attachedBall != null;
+
+		public void InitializeBall()
+		{
+			if (spriteRenderer == null)
+			{
+				spriteRenderer = GetComponent<SpriteRenderer>();
+			}
+
+			StartCoroutine(FadeIn(0.5f));
+		}
+
+		IEnumerator FadeIn(float time)
+		{
+			if (time > 0f)
+			{
+				var startTime = Time.time;
+				while (Time.time - startTime < time)
+				{
+					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, (Time.time - startTime) / time);
+					yield return null;
+				}
+			}
+		}
 
 		public void DestroyBall()
 		{
@@ -164,8 +193,8 @@ namespace CGJ2023
 		void OnCollisionEnter2D(Collision2D collision)
 		{
 			var colliderGameObject = collision.gameObject;
-			var ball = colliderGameObject.GetComponent<CollectableBall>();
 
+			var ball = colliderGameObject.GetComponent<CollectableBall>();
 			if (ball != null
 				&& BallColor == ball.BallColor
 				&& (IsAttached || ball.IsAttached))
@@ -174,6 +203,16 @@ namespace CGJ2023
 				if (playerBall != null)
 				{
 					ball.AttachTo(playerBall);
+				}
+			}
+
+			if (ball != null && !ball.IsAttached)
+			{
+				var rigidBody = ball.GetComponent<Rigidbody2D>();
+				if (rigidBody != null)
+				{
+					var pushDirection = colliderGameObject.transform.position - transform.position;
+					rigidBody.AddForce(pushDirection.normalized * 4f, ForceMode2D.Impulse);
 				}
 			}
 		}
