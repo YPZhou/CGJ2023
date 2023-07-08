@@ -141,6 +141,7 @@ namespace CGJ2023
 					}
 				}
 
+				spriteRenderer.sortingOrder = 100;
 				var startTime = Time.time;
 				while (Time.time - startTime < time)
 				{
