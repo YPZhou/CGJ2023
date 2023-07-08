@@ -57,6 +57,11 @@ namespace CGJ2023
 			{
 				transform.position = new Vector3(transform.position.x, -4.7f);
 			}
+
+            if (playerIcon != null)
+            {
+                playerIcon.transform.localPosition = new Vector3(0f, Mathf.Cos(Time.time * 5f) * 0.25f + 1.5f);
+            }
 		}
 
         void OnCollisionEnter2D(Collision2D collision)
@@ -101,6 +106,9 @@ namespace CGJ2023
 
         [SerializeField]
         float moveSpeed;
+
+        [SerializeField]
+        SpriteRenderer playerIcon;
 
         HashSet<CollectableBall> attachedBalls = new();
     }
