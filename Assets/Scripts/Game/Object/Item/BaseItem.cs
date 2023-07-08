@@ -5,6 +5,7 @@ namespace CGJ2023
 	public abstract class BaseItem : BaseGameObject
 	{
         public abstract int SpawnProb { get; }
+        protected virtual bool DestoryAtOnce => true;
 
         public void ApplyEffect(PlayerBall player)
         {
@@ -13,6 +14,11 @@ namespace CGJ2023
                 Debug.Log(DebugString);
             }
             ApplyEffectCore(player);
+
+            if (DestoryAtOnce)
+            {
+                Destroy(gameObject);
+            }
         }
 
         protected abstract void ApplyEffectCore(PlayerBall player);

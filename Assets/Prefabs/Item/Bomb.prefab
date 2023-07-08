@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1913143829960135266}
   - component: {fileID: 2526222052995108493}
+  - component: {fileID: 4748804309077567485}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -123,7 +124,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6290834988312975546}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -150,7 +151,19 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.0001
+  m_Radius: 4.74
+--- !u!114 &4748804309077567485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6290834988312975546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 229bcae9792c24149a2b5f306fedbabb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6342838931419933039
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,4 +328,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnProb: 10
-  BombRadius: 3
+  BombScore: 0

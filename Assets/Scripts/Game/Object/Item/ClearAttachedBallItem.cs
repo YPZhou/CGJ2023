@@ -14,7 +14,6 @@ namespace CGJ2023
         protected override string DebugString => $"ClearAttachedBallItem: Clearing all attached balls";
         protected override void ApplyEffectCore(PlayerBall player)
         {
-            base.ApplyEffect(player);
             player.ClearAttachedBalls();
         }
 

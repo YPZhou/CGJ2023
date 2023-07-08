@@ -19,7 +19,6 @@ namespace CGJ2023
 
         protected override void ApplyEffectCore(PlayerBall player)
         {
-            base.ApplyEffect(player);
             room.ComboCount += comboxAddup;
         }
 

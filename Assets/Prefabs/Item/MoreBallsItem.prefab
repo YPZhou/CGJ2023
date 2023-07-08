@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: -1340363991372839652}
   - component: {fileID: 4976135192184358466}
   m_Layer: 0
-  m_Name: ComboCountItem 2
+  m_Name: MoreBallsItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

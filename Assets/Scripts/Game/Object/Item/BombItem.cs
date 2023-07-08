@@ -10,12 +10,17 @@ namespace CGJ2023
         int spawnProb = 10;
         public override int SpawnProb => spawnProb;
 
+        //Debug
         [SerializeField]
-        float BombRadius = 3.0f;
+        int BombScore = 0;
 
-        float lifeTime = 0.02f;
+        protected override bool DestoryAtOnce => false;
+
+        float lifeTime = 0.04f;
 
         Collider2D Collider;
+
+        public Room Room => room;
 
         protected override void ApplyEffectCore(PlayerBall player)
         {
@@ -26,10 +31,6 @@ namespace CGJ2023
         {
             Collider = transform.GetChild(1).GetComponentInChildren<Collider2D>();
             Collider.enabled = false;
-            if (Collider is CircleCollider2D circle)
-            {
-                circle.radius = BombRadius;
-            }
         }
 
         protected override void UpdateCore()
@@ -41,19 +42,8 @@ namespace CGJ2023
             
             if (lifeTime <= 0)
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            var ball = collision.gameObject.GetComponent<CollectableBall>();
-            if (ball != null)
-            {
-                ball.DestroyBall();
-            }
-
-            room.Score += 1.0f;
         }
     }
 }
