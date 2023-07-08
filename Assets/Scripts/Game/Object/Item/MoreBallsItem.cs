@@ -10,9 +10,12 @@ namespace CGJ2023
         int spawnProb = 10;
         public override int SpawnProb => spawnProb;
 
-        public override void ApplyEffect(PlayerBall player)
+        [SerializeField]
+        int SpeedModifier = 10;
+
+        protected override void ApplyEffectCore(PlayerBall player)
         {
-            base.ApplyEffect(player);
+            room.BallBirthSpeedModifier += SpeedModifier;
         }
 
         protected override void StartCore()

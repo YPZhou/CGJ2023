@@ -17,7 +17,7 @@ namespace CGJ2023
 
         protected override string DebugString => $"ComboCountItem: Adding combo";
 
-        public override void ApplyEffect(PlayerBall player)
+        protected override void ApplyEffectCore(PlayerBall player)
         {
             base.ApplyEffect(player);
             room.ComboCount += comboxAddup;

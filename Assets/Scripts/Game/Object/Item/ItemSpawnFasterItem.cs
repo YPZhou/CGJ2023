@@ -10,12 +10,20 @@ namespace CGJ2023
         int spawnProb = 10;
         public override int SpawnProb => spawnProb;
 
+        [SerializeField]
+        float time;
+
         protected override void StartCore()
         {
         }
 
         protected override void UpdateCore()
         {
+        }
+
+        protected override void ApplyEffectCore(PlayerBall player)
+        {
+            room.ItemSpawner.NextSpawnTime -= time;
         }
     }
 }
