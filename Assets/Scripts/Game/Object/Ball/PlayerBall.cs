@@ -46,11 +46,15 @@ namespace CGJ2023
 
 			if (ball != null)
 			{
-				var color = ball.BallColor;	// do attach or destroy according to color
-				
-				ball.AttachTo(this);
-				
-				//Destroy(collider.gameObject);
+				var color = ball.BallColor;
+				if (room.ThemeColor == color)
+				{
+					Destroy(colliderGameObject);
+				}
+				else
+				{
+					ball.AttachTo(this);
+				}
 			}
 			else if (item != null)
 			{

@@ -30,7 +30,7 @@ namespace CGJ2023
 			var scriptsObject = GameObject.Find("SceneScripts");
 			if (scriptsObject != null )
 			{
-				var room = scriptsObject.GetComponent<Room>();
+				room = scriptsObject.GetComponent<Room>();
 				if (room == null)
 				{
 					Debug.LogError($"{scriptsObject.name}È±ÉÙRoom×é¼þ");

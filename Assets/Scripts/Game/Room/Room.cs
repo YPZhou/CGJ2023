@@ -4,7 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static CGJ2023.Enums;
-using System.Runtime;
 
 namespace CGJ2023
 {
@@ -34,10 +33,9 @@ namespace CGJ2023
 
 		void Start()
 		{
-			themeColor = BallColor.Red;
+			ThemeColor = BallColor.Red;
 			Score = 0;
-			ThemeColor = 0;
-            HasChanges = false;
+			ThemeScore = 0;
 
 			InitAvailablePositions();
 			CreatePlayerBall();
