@@ -88,12 +88,18 @@ namespace CGJ2023
 
 		void PushToAttachedBall()
 		{
-			if (IsAttached && transform.localPosition.sqrMagnitude > 1f)
+			if (IsAttached && transform.localPosition.sqrMagnitude > 0.5f)
 			{
 				var rigidBody = GetComponent<Rigidbody2D>();
 				if (rigidBody != null)
 				{
-					rigidBody.AddForce(-transform.localPosition * 0.2f);
+					var forceFactor = 0.2f;
+					if (transform.localPosition.sqrMagnitude > 1f)
+					{
+						forceFactor = 1f;
+					}
+
+					rigidBody.AddForce(-transform.localPosition * forceFactor);
 				}
 
 				transform.localRotation = Quaternion.identity;
@@ -187,8 +193,8 @@ namespace CGJ2023
 		void OnCollisionEnter2D(Collision2D collision)
 		{
 			var colliderGameObject = collision.gameObject;
-			var ball = colliderGameObject.GetComponent<CollectableBall>();
 
+			var ball = colliderGameObject.GetComponent<CollectableBall>();
 			if (ball != null
 				&& BallColor == ball.BallColor
 				&& (IsAttached || ball.IsAttached))
@@ -197,6 +203,16 @@ namespace CGJ2023
 				if (playerBall != null)
 				{
 					ball.AttachTo(playerBall);
+				}
+			}
+
+			if (ball != null && !ball.IsAttached)
+			{
+				var rigidBody = ball.GetComponent<Rigidbody2D>();
+				if (rigidBody != null)
+				{
+					var pushDirection = colliderGameObject.transform.position - transform.position;
+					rigidBody.AddForce(pushDirection.normalized * 4f, ForceMode2D.Impulse);
 				}
 			}
 		}
