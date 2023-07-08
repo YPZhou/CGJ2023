@@ -90,12 +90,11 @@ namespace CGJ2023
         #region ItemEffects
         public void ClearAttachedBalls()
         {
-            //TODO
-            //foreach (var ball in attachedBalls)
-            //{
-            //    Destroy(ball);
-            //}
-            //attachedBalls.Clear();
+            foreach (var ball in attachedBalls)
+            {
+                ball.DestroyBall();
+            }
+            attachedBalls.Clear();
         }
 
         #endregion

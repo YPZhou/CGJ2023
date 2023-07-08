@@ -393,6 +393,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &469729136 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3433772103135460962, guid: a67cf2fa466ef554da4210af1d54e9c2, type: 3}
+  m_PrefabInstance: {fileID: 6318613647381241486}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,12 +1071,31 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8341440620668689207, guid: a67cf2fa466ef554da4210af1d54e9c2, type: 3}
   m_PrefabInstance: {fileID: 6318613647381241486}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 469729136}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2293d918dd915b441b8e45df19640e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &851769881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469729136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9a707cd58bffd4082a10e99353f10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enabled: 1
+  itemSpawnTime: 30
+  nextSpawnTime: 0
+  itemPrefabas:
+  - {fileID: 6342838931419933039, guid: 016bbe3110ae0934cbeeed60f352116a, type: 3}
+  - {fileID: 6342838931419933039, guid: e04669463bcde664ab10c7b6eb0f7259, type: 3}
+  - {fileID: 6342838931419933039, guid: 8d64373df2d4eec48aeafe43f0fc34b9, type: 3}
 --- !u!1 &930414986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2131,8 +2155,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8341440620668689207, guid: a67cf2fa466ef554da4210af1d54e9c2, type: 3}
+      propertyPath: collectableBalls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341440620668689207, guid: a67cf2fa466ef554da4210af1d54e9c2, type: 3}
+      propertyPath: collectableBalls.Array.data[0]
+      value: 
+      objectReference: {fileID: 6342838931419933039, guid: 016bbe3110ae0934cbeeed60f352116a, type: 3}
+    - target: {fileID: 8341440620668689207, guid: a67cf2fa466ef554da4210af1d54e9c2, type: 3}
+      propertyPath: collectableBalls.Array.data[1]
+      value: 
+      objectReference: {fileID: 6342838931419933039, guid: e04669463bcde664ab10c7b6eb0f7259, type: 3}
+    - target: {fileID: 8341440620668689207, guid: a67cf2fa466ef554da4210af1d54e9c2, type: 3}
+      propertyPath: collectableBalls.Array.data[2]
+      value: 
+      objectReference: {fileID: 6342838931419933039, guid: 8d64373df2d4eec48aeafe43f0fc34b9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3433772103135460962, guid: a67cf2fa466ef554da4210af1d54e9c2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 851769881}
   m_SourcePrefab: {fileID: 100100000, guid: a67cf2fa466ef554da4210af1d54e9c2, type: 3}

@@ -1,14 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static CGJ2023.Enums;
 
 namespace CGJ2023
-{
+{ 
     public class ItemSpawner : BaseGameObject
     {
+        [SerializeField]
+        bool Enabled = false;
+
         [SerializeField]
         float itemSpawnTime;
         public float SpawnTime => itemSpawnTime;
@@ -17,21 +17,18 @@ namespace CGJ2023
         float nextSpawnTime;
         public float NextSpawnTime => nextSpawnTime;
 
-        [SerializeField]
-        List<string> ItemPrefabsPath = new List<string>();
         int probSum;
         List<int> probs = new List<int>();
+
+        [SerializeField]
         List<GameObject> itemPrefabas = new();
 
         protected override void StartCore()
         {
-
             probSum = 0;
-            foreach (var itemPath in ItemPrefabsPath)
+            foreach (var item in itemPrefabas)
             {
-                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(itemPath);
-                itemPrefabas.Add(prefab);
-                var comp = prefab.GetComponent<BaseItem>();
+                var comp = item.GetComponent<BaseItem>();
                 probs.Add(probSum);
                 probSum += comp.SpawnProb;
             }
@@ -39,19 +36,27 @@ namespace CGJ2023
 
         protected override void UpdateCore()
         {
+            if (Enabled == false)
+            {
+                return;
+            }
             nextSpawnTime -= Time.deltaTime;
         }
 
         public bool CanSpawnNow()
         {
-            return nextSpawnTime < 0.0f;
+            return Enabled ? nextSpawnTime < 0.0f : Enabled;
         }
 
         public void SpawnItem(Vector2 pos)
         {
+            if (itemPrefabas.Count == 0)
+            {
+                return;
+            }
+
             var type = Room.random.Next(probSum);
             type = probs.BinarySearch(type);
-
 
             if (type < 0)
             {
