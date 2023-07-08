@@ -4,9 +4,13 @@ namespace CGJ2023
 {
 	public abstract class BaseGameObject : MonoBehaviour
 	{
-		void Start()
+		void Awake()
 		{
 			CacheComponents();
+		}
+
+		void Start()
+		{
 			StartCore();
 		}
 
