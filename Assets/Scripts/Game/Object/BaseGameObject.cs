@@ -26,8 +26,23 @@ namespace CGJ2023
 			{
 				Debug.LogError($"{gameObject.name}缺少SpriteRenderer组件");
 			}
+
+			var scriptsObject = GameObject.Find("SceneScripts");
+			if (scriptsObject != null )
+			{
+				var room = scriptsObject.GetComponent<Room>();
+				if (room == null)
+				{
+					Debug.LogError($"{scriptsObject.name}缺少Room组件");
+				}
+			}
+			else
+			{
+				Debug.LogError("场景缺少SceneScripts预制体");
+			}
 		}
 
 		protected SpriteRenderer spriteRenderer;
+		protected Room room;
 	}
 }
