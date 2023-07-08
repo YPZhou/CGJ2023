@@ -16,21 +16,21 @@ namespace CGJ2023
 
         public List<GameObject> collectableBalls = new List<GameObject>();
 
-        const int birthRate = 3;
-        const int initBirthCount = 20;
-        const int birthRateChangeDT = 10;
-        const int birthCountChangeDelta = 10;
-        int birthTimes = 0;
-        float spendTime = 0;
-        const float Top = 4.4f;
-        const float Bottom = -4.4f;
-        const float Left = -7.3f;
-        const float Right = 7.3f;
-        const float BallRadius = 0.25f;
-        const float RandomRange = 0.15f;
-        int PositionsPerLine = Mathf.FloorToInt((Right - Left) / ((BallRadius + RandomRange) * 2));
-        int positionsPerColumn = Mathf.FloorToInt((Top - Bottom) / ((BallRadius + RandomRange) * 2));
-        List<GameObject> availableIndicators = new List<GameObject>();
+		const int birthRate = 3;
+		const int initBirthCount = 20;
+		const int birthRateChangeDT = 10;
+		const int birthCountChangeDelta = 10;
+		int birthTimes = 0;
+		float spendTime = 0;
+		const float Top = 4.7f;
+		const float Bottom = -4.7f;
+		const float Left = -8.6f;
+		const float Right = 8.6f;
+		const float BallRadius = 0.25f;
+		const float RandomRange = 0.15f;
+		int PositionsPerLine = Mathf.FloorToInt((Right - Left) / ((BallRadius + RandomRange) * 2)) + 1;
+		int positionsPerColumn = Mathf.FloorToInt((Top - Bottom) / ((BallRadius + RandomRange) * 2)) + 1;
+		List<GameObject> availableIndicators = new List<GameObject>();
         #endregion
 
         #region item management
@@ -314,15 +314,17 @@ namespace CGJ2023
 
 		void OnGreenTheamScoreFull()
 		{
-			var availables = GetAvailablePositions();
-			for (var i = 0; i < 10 && availables.Count > 0; i++)
-			{
-				var index = availables.ElementAt<int>(random.Next(availables.Count));
-				availables.Remove(index);
-				var position = GetRandomPositionByIndex(index, true);
-				ItemSpawner.SpawnItem(position);
-			}
-		}
+            var availables = GetAvailablePositions();
+            if (availables.Count == 0)
+            {
+                return;
+            }
+
+            var index = availables.ElementAt<int>(random.Next(availables.Count));
+            var pos = GetRandomPositionByIndex(index, true);
+            ItemSpawner.SpawnItem(pos);
+            availables.Remove(index);
+        }
 
 		void OnBlueTheamScoreFull()
 		{
