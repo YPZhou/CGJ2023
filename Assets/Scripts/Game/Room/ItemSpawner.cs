@@ -32,7 +32,7 @@ namespace CGJ2023
             }
         }
 
-        private void UpdateCore()
+        private void Update()
         {
             if (Enabled == false)
             {

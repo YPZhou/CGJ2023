@@ -314,15 +314,17 @@ namespace CGJ2023
 
 		void OnGreenTheamScoreFull()
 		{
-			var availables = GetAvailablePositions();
-			for (var i = 0; i < 10 && availables.Count > 0; i++)
-			{
-				var index = availables.ElementAt<int>(random.Next(availables.Count));
-				availables.Remove(index);
-				var position = GetRandomPositionByIndex(index, true);
-				ItemSpawner.SpawnItem(position);
-			}
-		}
+            var availables = GetAvailablePositions();
+            if (availables.Count == 0)
+            {
+                return;
+            }
+
+            var index = availables.ElementAt<int>(random.Next(availables.Count));
+            var pos = GetRandomPositionByIndex(index, true);
+            ItemSpawner.SpawnItem(pos);
+            availables.Remove(index);
+        }
 
 		void OnBlueTheamScoreFull()
 		{
