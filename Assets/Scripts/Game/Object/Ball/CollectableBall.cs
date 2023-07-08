@@ -152,6 +152,11 @@ namespace CGJ2023
 					Instantiate(touchHint, transform.position, Quaternion.AngleAxis(randomAngle, Vector3.back));
 				}
 
+				if (GameObject.Find("SoundManager") != null)
+				{
+					SoundManager.PlayAudio("Touch");
+				}
+
 				room.collectableBalls.Remove(gameObject);
 				StartCoroutine(FadeOutAndDestroy(0.5f));
 			}
@@ -208,7 +213,7 @@ namespace CGJ2023
 			var ball = colliderGameObject.GetComponent<CollectableBall>();
 
 			if (ball != null
-				&& BallColor == ball.BallColor
+				//&& BallColor == ball.BallColor
 				&& (IsAttached || ball.IsAttached))
 			{
 				var playerBall = GameObject.Find("PlayerBall")?.GetComponent<PlayerBall>();
