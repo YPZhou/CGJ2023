@@ -38,7 +38,10 @@ namespace CGJ2023
 		{
 			transform.parent = other.transform;
 			transform.localPosition = transform.localPosition.normalized;
+			IsAttached = true;
 		}
+
+		public bool IsAttached { get; private set; }
 
 		[SerializeField]
 		public BallColor BallColor;

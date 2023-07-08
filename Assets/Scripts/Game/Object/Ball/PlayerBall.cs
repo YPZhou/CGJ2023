@@ -38,9 +38,9 @@ namespace CGJ2023
 			transform.position = transform.position + moveDirection.normalized * moveSpeed * Time.deltaTime;
 		}
 
-		void OnTriggerEnter2D(Collider2D collider)
+		void OnCollisionEnter2D(Collision2D collision)
 		{
-			var colliderGameObject = collider.gameObject;
+			var colliderGameObject = collision.gameObject;
 			var ball = colliderGameObject.GetComponent<CollectableBall>();
 			var item = colliderGameObject.GetComponent<BaseItem>();
 
