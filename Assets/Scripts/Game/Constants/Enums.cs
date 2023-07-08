@@ -9,5 +9,13 @@ namespace CGJ2023
 			Blue,
 			MAX
 		}
-	}
+
+        public enum ItemType
+        {
+            ChangeThemeColor,
+			ClearAttachedBalls,
+			ComboBounus,
+			MAX
+        }
+    }
 }
