@@ -12,11 +12,13 @@ namespace CGJ2023.Item
 	{
         [SerializeField]
 		BallColor color;
+
+        protected override string DebugString => $"ChangeThemeColorItem: Set theme color to {color}";
+
         public override void ApplyEffect(PlayerBall player)
         {
             base.ApplyEffect(player);
 			room.ThemeColor = color;
-			Debug.Log($"ChangeThemeColorItem::Changing Main theme color to {color}");
         }
 
         protected override void StartCore()
