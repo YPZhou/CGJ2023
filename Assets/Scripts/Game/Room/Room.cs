@@ -52,14 +52,6 @@ namespace CGJ2023
 
         }
 
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                SceneManager.LoadScene("ResultScene");
-            }
-        }
-
         void FixedUpdate()
         {
             TryCreateBalls();

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace CGJ2023
 {
-	public class ResultScene : MonoBehaviour
+	public class GameScene : MonoBehaviour
 	{
 		void OnEnable()
 		{
@@ -49,12 +49,15 @@ namespace CGJ2023
 				}
 			}
 
-			SceneManager.LoadScene("TitleScene");
+			SceneManager.LoadScene("ResultScene");
 		}
 
-		public void BackToTitle()
+		void Update()
 		{
-			StartCoroutine(FadeOutAndLoadScene(0.25f));
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				StartCoroutine(FadeOutAndLoadScene(0.25f));
+			}
 		}
 
 		[SerializeField]
