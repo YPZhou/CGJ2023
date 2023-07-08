@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BallColor: 0
+  touchHint: {fileID: 3571607584636181863, guid: 42d81c6078be58446906cf5fb5901d00, type: 3}
 --- !u!58 &1148156838216352632
 CircleCollider2D:
   m_ObjectHideFlags: 0

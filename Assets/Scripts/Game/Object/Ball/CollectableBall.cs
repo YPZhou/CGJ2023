@@ -84,7 +84,8 @@ namespace CGJ2023
 			}
 		}
 
-		bool shouldDestroy;	// mark for destroy in next frame
+		bool shouldDestroy; // mark for destroy in next frame
+		bool isDestroying;
 
 		void PushToAttachedBall()
 		{
@@ -141,8 +142,19 @@ namespace CGJ2023
 
 		public void DestroyBall()
 		{
-			room.collectableBalls.Remove(gameObject);
-			StartCoroutine(FadeOutAndDestroy(0.5f));
+			if (!isDestroying)
+			{
+				isDestroying = true;
+
+				if (touchHint != null)
+				{
+					var randomAngle = Random.Range(-45, 45);
+					Instantiate(touchHint, transform.position, Quaternion.AngleAxis(randomAngle, Vector3.back));
+				}
+
+				room.collectableBalls.Remove(gameObject);
+				StartCoroutine(FadeOutAndDestroy(0.5f));
+			}
 		}
 
 		IEnumerator FadeOutAndDestroy(float time)
@@ -219,5 +231,8 @@ namespace CGJ2023
 
 		[SerializeField]
 		public BallColor BallColor;
+
+		[SerializeField]
+		GameObject touchHint;
 	}
 }
