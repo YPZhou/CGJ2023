@@ -205,8 +205,8 @@ namespace CGJ2023
 		void OnCollisionEnter2D(Collision2D collision)
 		{
 			var colliderGameObject = collision.gameObject;
-
 			var ball = colliderGameObject.GetComponent<CollectableBall>();
+
 			if (ball != null
 				&& BallColor == ball.BallColor
 				&& (IsAttached || ball.IsAttached))

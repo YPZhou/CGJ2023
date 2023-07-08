@@ -17,9 +17,9 @@ namespace CGJ2023
 
 		public List<GameObject> collectableBalls = new List<GameObject>();
 
-		const int birthRate = 5;
-		const int initBirthCount = 10;
-		const int birthRateChangeDT = 30;
+		const int birthRate = 3;
+		const int initBirthCount = 20;
+		const int birthRateChangeDT = 10;
 		const int birthCountChangeDelta = 10;
 		int birthTimes = 0;
 		float spendTime = 0;
@@ -124,7 +124,7 @@ namespace CGJ2023
         }
 
 		GameObject DoCreateOneBall(int index)
-        {
+		{
 			var position = GetRandomPositionByIndex(index, true);
 			var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Ball.prefab", typeof(GameObject)) as GameObject;
 
@@ -134,16 +134,16 @@ namespace CGJ2023
 			collectableBall.InitializeBall();
 
 			if (Random.Range(0.0f, 1.0f) > 0.6)
-            {
+			{
 				switch (ThemeColor)
-                {
+				{
 					case BallColor.Red:
 						if (Random.Range(0.0f, 1.0f) > 0.5f)
-                        {
+						{
 							collectableBall.BallColor = BallColor.Blue;
 						}
-                        else
-                        {
+						else
+						{
 							collectableBall.BallColor = BallColor.Green;
 						}
 						break;
@@ -167,10 +167,10 @@ namespace CGJ2023
 							collectableBall.BallColor = BallColor.Green;
 						}
 						break;
-                }
-            }
-            else
-            {
+				}
+			}
+			else
+			{
 				collectableBall.BallColor = ThemeColor;
 			}
 			return ball;
