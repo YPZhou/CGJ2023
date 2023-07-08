@@ -51,9 +51,9 @@ namespace CGJ2023
 				for (var i = 0; i < room.collectableBalls.Count; i++)
 				{
 					var obj = room.collectableBalls[i];
-					if ((transform.position - obj.transform.position).sqrMagnitude <= 0.5f)
-					{
 						var ball = obj.GetComponent<CollectableBall>();
+					if (ball.IsAttached && (transform.position - obj.transform.position).sqrMagnitude <= 0.5f)
+					{
 						if (ball != null)
 						{
 							if (ball.BallColor == BallColor)
