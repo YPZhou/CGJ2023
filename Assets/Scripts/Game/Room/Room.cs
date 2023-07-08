@@ -213,7 +213,7 @@ namespace CGJ2023
 		public int Score
 		{
 			get => score;
-			private set
+			set
 			{
 				if (score != value)
 				{
@@ -228,7 +228,7 @@ namespace CGJ2023
 		public int ThemeScore
 		{
 			get => themeScore;
-			private set
+			set
 			{
 				if (themeScore != value)
 				{
