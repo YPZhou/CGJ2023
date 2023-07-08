@@ -16,9 +16,12 @@ namespace CGJ2023
 			{
 				UpdateThemeColor();
 				UpdateScore();
+				UpdateThemeScore();
 
 				room.ClearChanges();
 			}
+
+			UpdateTimer();
 		}
 
 		void UpdateThemeColor()
@@ -56,6 +59,14 @@ namespace CGJ2023
 			}
 		}
 
+		void UpdateTimer()
+		{
+			if (timer != null)
+			{
+				timer.text = $"{Time.timeSinceLevelLoad:f1}s";
+			}
+		}
+
 		[SerializeField]
 		Image themeColor;
 
@@ -64,6 +75,9 @@ namespace CGJ2023
 
 		[SerializeField]
 		Text themeScore;
+
+		[SerializeField]
+		Text timer;
 
 		[SerializeField]
 		Room room;
