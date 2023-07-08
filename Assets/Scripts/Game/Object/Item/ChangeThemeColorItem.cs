@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using static CGJ2023.Enums;
 
-namespace CGJ2023.Item
+namespace CGJ2023
 {
 	/// <summary>
 	/// 主题色更换道具
