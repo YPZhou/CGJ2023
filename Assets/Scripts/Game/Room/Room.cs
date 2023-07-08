@@ -127,7 +127,6 @@ namespace CGJ2023
         {
 			var position = GetRandomPositionByIndex(index, true);
 			var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Ball.prefab", typeof(GameObject)) as GameObject;
-
 			var ball = GameObject.Instantiate(collentableBallPrefab, position, Quaternion.identity);
 			collectableBalls.Add(ball);
 			if (Random.Range(0.0f, 1.0f) > 0.5)
@@ -137,38 +136,38 @@ namespace CGJ2023
 					case BallColor.Red:
 						if (Random.Range(0.0f, 1.0f) > 0.5f)
                         {
-							collectableBall.BallColor = BallColor.Blue;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Blue;
 						}
                         else
                         {
-							collectableBall.BallColor = BallColor.Green;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Green;
 						}
 						break;
 					case BallColor.Green:
 						if (Random.Range(0.0f, 1.0f) > 0.5f)
 						{
-							collectableBall.BallColor = BallColor.Blue;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Blue;
 						}
 						else
 						{
-							collectableBall.BallColor = BallColor.Red;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Red;
 						}
 						break;
 					case BallColor.Blue:
 						if (Random.Range(0.0f, 1.0f) > 0.5f)
 						{
-							collectableBall.BallColor = BallColor.Red;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Red;
 						}
 						else
 						{
-							collectableBall.BallColor = BallColor.Green;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Green;
 						}
 						break;
                 }
             }
             else
             {
-				collectableBall.BallColor = ThemeColor;
+				ball.GetComponent<CollectableBall>().BallColor = ThemeColor;
 			}
 			return ball;
 		}
