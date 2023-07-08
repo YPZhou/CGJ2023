@@ -17,7 +17,7 @@ namespace CGJ2023
 		{
 			SetSpriteColorToBallColor();
 		}
-
+		 
 		void SetSpriteColorToBallColor()
 		{
 			switch (BallColor)
