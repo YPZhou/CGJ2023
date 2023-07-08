@@ -16,6 +16,7 @@ namespace CGJ2023
 		protected override void UpdateCore()
 		{
 			SetSpriteColorToBallColor();
+			PushToAttachedBall();
 		}
 		 
 		void SetSpriteColorToBallColor()
@@ -34,14 +35,30 @@ namespace CGJ2023
 			}
 		}
 
+		void PushToAttachedBall()
+		{
+			if (IsAttached && transform.localPosition.sqrMagnitude > 1f)
+			{
+				var rigidBody = GetComponent<Rigidbody2D>();
+				if (rigidBody != null)
+				{
+					rigidBody.AddForce(-transform.localPosition.normalized * 0.1f);
+				}
+
+				transform.localRotation = Quaternion.identity;
+			}
+		}
+
 		public void AttachTo(BaseBall other)
 		{
 			transform.parent = other.transform;
 			transform.localPosition = transform.localPosition.normalized;
-			IsAttached = true;
+			attachedBall = other;
 		}
 
-		public bool IsAttached { get; private set; }
+		BaseBall attachedBall;
+
+		public bool IsAttached => attachedBall != null;
 
 		[SerializeField]
 		public BallColor BallColor;
