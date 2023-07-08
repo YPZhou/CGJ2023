@@ -22,14 +22,14 @@ namespace CGJ2023
 		const int birthCountChangeDelta = 10;
 		int birthTimes = 0;
 		float spendTime = 0;
-		const float Top = 4.4f;
-		const float Bottom = -4.4f;
-		const float Left = -7.3f;
-		const float Right = 7.3f;
+		const float Top = 4.7f;
+		const float Bottom = -4.7f;
+		const float Left = -8.6f;
+		const float Right = 8.6f;
 		const float BallRadius = 0.25f;
 		const float RandomRange = 0.15f;
-		int PositionsPerLine = Mathf.FloorToInt((Right - Left) / ((BallRadius + RandomRange) * 2));
-		int positionsPerColumn = Mathf.FloorToInt((Top - Bottom) / ((BallRadius + RandomRange) * 2));
+		int PositionsPerLine = Mathf.FloorToInt((Right - Left) / ((BallRadius + RandomRange) * 2)) + 1;
+		int positionsPerColumn = Mathf.FloorToInt((Top - Bottom) / ((BallRadius + RandomRange) * 2)) + 1;
 		List<GameObject> availableIndicators = new List<GameObject>();
         #endregion
 
