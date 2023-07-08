@@ -12,7 +12,7 @@ namespace CGJ2023
         public override int SpawnProb => spawnProb;
 
         protected override string DebugString => $"ClearAttachedBallItem: Clearing all attached balls";
-        public override void ApplyEffect(PlayerBall player)
+        protected override void ApplyEffectCore(PlayerBall player)
         {
             base.ApplyEffect(player);
             player.ClearAttachedBalls();

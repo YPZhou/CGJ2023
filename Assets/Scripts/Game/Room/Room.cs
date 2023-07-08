@@ -31,10 +31,13 @@ namespace CGJ2023
 		int PositionsPerLine = Mathf.FloorToInt((Right - Left) / ((BallRadius + RandomRange) * 2)) + 1;
 		int positionsPerColumn = Mathf.FloorToInt((Top - Bottom) / ((BallRadius + RandomRange) * 2)) + 1;
 		List<GameObject> availableIndicators = new List<GameObject>();
+
+        public int BallBirthSpeedModifier = 0;
         #endregion
 
         #region item management
-        ItemSpawner ItemSpawner = null;
+        ItemSpawner itemSpawner = null;
+        public ItemSpawner ItemSpawner => itemSpawner;
         #endregion
 
         void Start()
@@ -46,7 +49,7 @@ namespace CGJ2023
             InitAvailablePositions();
             CreatePlayerBall();
 
-            ItemSpawner = GetComponent<ItemSpawner>();
+            itemSpawner = GetComponent<ItemSpawner>();
 
         }
 
@@ -67,7 +70,7 @@ namespace CGJ2023
 
         private void TryCreatItems()
         {
-            if (ItemSpawner.CanSpawnNow())
+            if (itemSpawner.CanSpawnNow())
             {
                 var availables = GetAvailablePositions();
                 if (availables.Count == 0)
@@ -77,7 +80,7 @@ namespace CGJ2023
 
                 var index = availables.ElementAt<int>(random.Next(availables.Count));
                 var pos = GetRandomPositionByIndex(index, true);
-                ItemSpawner.SpawnItem(pos);
+                itemSpawner.SpawnItem(pos);
                 availables.Remove(index);
             }
         }
@@ -111,7 +114,8 @@ namespace CGJ2023
 
         void TryCreateBalls()
         {
-            spendTime += Time.deltaTime;
+            spendTime += Time.deltaTime * (1+(float)BallBirthSpeedModifier/100);
+
             if (birthTimes < (spendTime / birthRate))
             {
                 DoCreateBalls();
@@ -322,7 +326,7 @@ namespace CGJ2023
 
             var index = availables.ElementAt<int>(random.Next(availables.Count));
             var pos = GetRandomPositionByIndex(index, true);
-            ItemSpawner.SpawnItem(pos);
+            itemSpawner.SpawnItem(pos);
             availables.Remove(index);
         }
 

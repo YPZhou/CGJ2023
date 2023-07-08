@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 8631057726050341430}
   - component: {fileID: 1148156838216352632}
   - component: {fileID: -1340363991372839652}
-  - component: {fileID: -3407017949258836223}
+  - component: {fileID: 4976135192184358466}
   m_Layer: 0
-  m_Name: ChangeColorThemeItem
+  m_Name: ComboCountItem 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 7c43b095e95fb284082dcc0ffa9bcc7d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06599708eaa67464592cec251cf0b721, type: 3}
   m_Color: {r: 1, g: 0.722584, b: 0.10849059, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -234,7 +234,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &-3407017949258836223
+--- !u!114 &4976135192184358466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,8 +243,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6342838931419933039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd7494a7e3976024fa86ec1f3c0dd56a, type: 3}
+  m_Script: {fileID: 11500000, guid: 82318142471f21a43afe9adabef39612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: 0
   spawnProb: 10
