@@ -246,3 +246,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7494a7e3976024fa86ec1f3c0dd56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: 0
+  spawnProb: 10
