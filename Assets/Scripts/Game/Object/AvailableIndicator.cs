@@ -12,14 +12,6 @@ namespace CGJ2023
 
 		void Update()
 		{
-			if (IsAvailable)
-			{
-				GetComponent<SpriteRenderer>().color = new Color(0, 255, 0, 20);
-			}
-			else
-			{
-				GetComponent<SpriteRenderer>().color = new Color(255, 0, 255, 20);
-			}
 		}
 
 		public int Index

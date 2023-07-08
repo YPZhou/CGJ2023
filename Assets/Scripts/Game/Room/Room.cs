@@ -121,11 +121,52 @@ namespace CGJ2023
             }
         }
 
-		void DoCreateOneBall(int index)
+		GameObject DoCreateOneBall(int index)
         {
 			var position = GetRandomPositionByIndex(index, true);
 			var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Ball.prefab", typeof(GameObject)) as GameObject;
-			PlayerBall = GameObject.Instantiate(collentableBallPrefab, position, Quaternion.identity);
+			var ball = GameObject.Instantiate(collentableBallPrefab, position, Quaternion.identity);
+			if (Random.Range(0.0f, 1.0f) > 0.6)
+            {
+				switch (ThemeColor)
+                {
+					case BallColor.Red:
+						if (Random.Range(0.0f, 1.0f) > 0.5f)
+                        {
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Blue;
+						}
+                        else
+                        {
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Green;
+						}
+						break;
+					case BallColor.Green:
+						if (Random.Range(0.0f, 1.0f) > 0.5f)
+						{
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Blue;
+						}
+						else
+						{
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Red;
+						}
+						break;
+					case BallColor.Blue:
+						if (Random.Range(0.0f, 1.0f) > 0.5f)
+						{
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Red;
+						}
+						else
+						{
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Green;
+						}
+						break;
+                }
+            }
+            else
+            {
+				ball.GetComponent<CollectableBall>().BallColor = ThemeColor;
+			}
+			return ball;
 		}
 
 		Vector2 GetRandomPositionByIndex(int index, bool random)
