@@ -20,7 +20,7 @@ namespace CGJ2023
 
 		void SetSpriteColorToBallColor()
 		{
-			switch (ballColor)
+			switch (BallColor)
 			{
 				case BallColor.Red:
 					spriteRenderer.color = Color.red;
@@ -35,6 +35,6 @@ namespace CGJ2023
 		}
 
 		[SerializeField]
-		BallColor ballColor;
+		public BallColor BallColor;
 	}
 }

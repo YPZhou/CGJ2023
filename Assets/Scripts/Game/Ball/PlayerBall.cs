@@ -38,6 +38,23 @@ namespace CGJ2023
 			transform.position = transform.position + moveDirection.normalized * moveSpeed * Time.deltaTime;
 		}
 
+		void OnTriggerEnter2D(Collider2D collider)
+		{
+			var ball = collider.gameObject.GetComponent<CollectableBall>();
+			var item = collider.gameObject.GetComponent<BaseItem>();
+
+			if (ball != null)
+			{
+				var color = ball.BallColor;
+				Destroy(collider.gameObject);
+			}
+			else if (item != null)
+			{
+				// Apply item effect
+				// ...
+			}
+		}
+
 		[SerializeField]
 		float moveSpeed;
 	}
