@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static CGJ2023.Enums;
@@ -18,8 +19,7 @@ namespace CGJ2023
 		{
 			if (shouldDestroy)
 			{
-				room.collectableBalls.Remove(gameObject);
-				Destroy(gameObject);
+				DestroyBall();
 			}
 
 			SetSpriteColorToBallColor();
@@ -51,7 +51,7 @@ namespace CGJ2023
 				for (var i = 0; i < room.collectableBalls.Count; i++)
 				{
 					var obj = room.collectableBalls[i];
-						var ball = obj.GetComponent<CollectableBall>();
+					var ball = obj.GetComponent<CollectableBall>();
 					if (ball.IsAttached && (transform.position - obj.transform.position).sqrMagnitude <= 0.5f)
 					{
 						if (ball != null)
@@ -93,7 +93,7 @@ namespace CGJ2023
 				var rigidBody = GetComponent<Rigidbody2D>();
 				if (rigidBody != null)
 				{
-					rigidBody.AddForce(-transform.localPosition * 0.1f);
+					rigidBody.AddForce(-transform.localPosition * 0.2f);
 				}
 
 				transform.localRotation = Quaternion.identity;
@@ -103,13 +103,43 @@ namespace CGJ2023
 		public void AttachTo(BaseBall other)
 		{
 			transform.parent = other.transform;
-			//transform.localPosition = transform.localPosition.normalized;
 			attachedBall = other;
 		}
 
 		BaseBall attachedBall;
 
 		public bool IsAttached => attachedBall != null;
+
+		public void DestroyBall()
+		{
+			room.collectableBalls.Remove(gameObject);
+			StartCoroutine(FadeOutAndDestroy(1f));
+		}
+
+		IEnumerator FadeOutAndDestroy(float time)
+		{
+			var rigidBody = GetComponent<Rigidbody2D>();
+			if (rigidBody != null)
+			{
+				rigidBody.Sleep();
+			}
+
+			var collider = GetComponent<Collider2D>();
+			if (collider != null)
+			{
+				collider.enabled = false;
+			}
+
+			var startTime = Time.time;
+			while (Time.time - startTime < time)
+			{
+				spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1 - (Time.time - startTime) / 0.5f);
+				transform.localScale = new Vector2(Time.time - startTime + 1f, Time.time - startTime + 1f);
+				yield return null;
+			}
+
+			Destroy(gameObject);
+		}
 
 		void OnCollisionEnter2D(Collision2D collision)
 		{

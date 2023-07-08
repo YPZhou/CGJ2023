@@ -50,8 +50,7 @@ namespace CGJ2023
 				if (room.ThemeColor == color)
 				{
 					room.OnCollectBall(color);
-					room.collectableBalls.Remove(colliderGameObject);
-					Destroy(colliderGameObject);
+					ball.DestroyBall();
 				}
 				else
 				{
