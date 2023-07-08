@@ -13,6 +13,10 @@ namespace CGJ2023.Item
         [SerializeField]
 		BallColor color;
 
+        [SerializeField]
+        int spawnProb = 10;
+        public override int SpawnProb => spawnProb;
+
         protected override string DebugString => $"ChangeThemeColorItem: Set theme color to {color}";
 
         public override void ApplyEffect(PlayerBall player)

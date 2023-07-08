@@ -9,6 +9,10 @@ namespace CGJ2023
 	public class ComboCountItem : BaseItem
 	{
         [SerializeField]
+        int spawnProb = 10;
+        public override int SpawnProb => spawnProb;
+
+        [SerializeField]
         int comboxAddup;
 
         protected override string DebugString => $"ComboCountItem: Adding combo";

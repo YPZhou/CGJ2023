@@ -4,6 +4,9 @@ namespace CGJ2023
 {
 	public abstract class BaseItem : BaseGameObject
 	{
+        
+        public virtual int SpawnProb { get; }
+
         public virtual void ApplyEffect(PlayerBall player)
         {
             if (DebugString is not null)
