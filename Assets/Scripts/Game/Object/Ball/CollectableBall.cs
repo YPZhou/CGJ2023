@@ -32,13 +32,13 @@ namespace CGJ2023
 			switch (BallColor)
 			{
 				case BallColor.Red:
-					spriteRenderer.color = Color.red;
+					spriteRenderer.color = new Color(1f, 0f, 0f, spriteRenderer.color.a);
 					break;
 				case BallColor.Blue:
-					spriteRenderer.color = Color.blue;
+					spriteRenderer.color = new Color(0f, 0f, 1f, spriteRenderer.color.a);
 					break;
 				case BallColor.Green:
-					spriteRenderer.color = Color.green;
+					spriteRenderer.color = new Color(0f, 1f, 0f, spriteRenderer.color.a);
 					break;
 			}
 		}
@@ -109,6 +109,29 @@ namespace CGJ2023
 		BaseBall attachedBall;
 
 		public bool IsAttached => attachedBall != null;
+
+		public void InitializeBall()
+		{
+			if (spriteRenderer == null)
+			{
+				spriteRenderer = GetComponent<SpriteRenderer>();
+			}
+
+			StartCoroutine(FadeIn(0.5f));
+		}
+
+		IEnumerator FadeIn(float time)
+		{
+			if (time > 0f)
+			{
+				var startTime = Time.time;
+				while (Time.time - startTime < time)
+				{
+					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, (Time.time - startTime) / time);
+					yield return null;
+				}
+			}
+		}
 
 		public void DestroyBall()
 		{

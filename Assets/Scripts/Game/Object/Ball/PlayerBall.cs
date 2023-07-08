@@ -61,7 +61,7 @@ namespace CGJ2023
             }
             else if (item != null)
             {
-                item.ApplyEffect(this);
+                //item.ApplyEffect(this);
                 Destroy(colliderGameObject);
             }
         }

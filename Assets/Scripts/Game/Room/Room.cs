@@ -1,4 +1,3 @@
-using CGJ2023.Item;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -127,8 +126,12 @@ namespace CGJ2023
         {
 			var position = GetRandomPositionByIndex(index, true);
 			var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Ball.prefab", typeof(GameObject)) as GameObject;
+
 			var ball = GameObject.Instantiate(collentableBallPrefab, position, Quaternion.identity);
 			collectableBalls.Add(ball);
+			var collectableBall = ball.GetComponent<CollectableBall>();
+			collectableBall.InitializeBall();
+
 			if (Random.Range(0.0f, 1.0f) > 0.6)
             {
 				switch (ThemeColor)
@@ -136,38 +139,38 @@ namespace CGJ2023
 					case BallColor.Red:
 						if (Random.Range(0.0f, 1.0f) > 0.5f)
                         {
-							ball.GetComponent<CollectableBall>().BallColor = BallColor.Blue;
+							collectableBall.BallColor = BallColor.Blue;
 						}
                         else
                         {
-							ball.GetComponent<CollectableBall>().BallColor = BallColor.Green;
+							collectableBall.BallColor = BallColor.Green;
 						}
 						break;
 					case BallColor.Green:
 						if (Random.Range(0.0f, 1.0f) > 0.5f)
 						{
-							ball.GetComponent<CollectableBall>().BallColor = BallColor.Blue;
+							collectableBall.BallColor = BallColor.Blue;
 						}
 						else
 						{
-							ball.GetComponent<CollectableBall>().BallColor = BallColor.Red;
+							collectableBall.BallColor = BallColor.Red;
 						}
 						break;
 					case BallColor.Blue:
 						if (Random.Range(0.0f, 1.0f) > 0.5f)
 						{
-							ball.GetComponent<CollectableBall>().BallColor = BallColor.Red;
+							collectableBall.BallColor = BallColor.Red;
 						}
 						else
 						{
-							ball.GetComponent<CollectableBall>().BallColor = BallColor.Green;
+							collectableBall.BallColor = BallColor.Green;
 						}
 						break;
                 }
             }
             else
             {
-				ball.GetComponent<CollectableBall>().BallColor = ThemeColor;
+				collectableBall.BallColor = ThemeColor;
 			}
 			return ball;
 		}
