@@ -246,11 +246,67 @@ namespace CGJ2023
 
 		void OnRedTheamScoreFull()
         {
+			int redNum = 0;
+			int blueNum = 0;
+			int greenNum = 0;
+			collectableBalls.ForEach(ball =>
+			{
+                switch (ball.GetComponent<CollectableBall>().BallColor)
+                {
+					case BallColor.Red:
+						redNum += 1;
+						break;
+					case BallColor.Blue:
+						blueNum += 1;
+						break;
+					case BallColor.Green:
+						greenNum += 1;
+						break;
+                }
+			});
+			
 			PlayerBall.GetComponent<PlayerBall>()?.ClearAttachedBalls();
 			while(collectableBalls.Count > 0)
             {
 				var ball = collectableBalls[0];
 				ball.GetComponent<CollectableBall>()?.DestroyBall();
+			}
+
+            switch (themeColor)
+            {
+				case BallColor.Red:
+					for (var i=0; i<redNum; i++)
+                    {
+						OnCollectBall(BallColor.Red);
+                    }
+					redNum = 0;
+					break;
+				case BallColor.Blue:
+					for (var i = 0; i < blueNum; i++)
+					{
+						OnCollectBall(BallColor.Blue);
+					}
+					blueNum = 0;
+					break;
+				case BallColor.Green:
+					for (var i = 0; i < greenNum; i++)
+					{
+						OnCollectBall(BallColor.Green);
+					}
+					greenNum = 0;
+					break;
+			}
+			for (var i = 0; i < redNum; i++)
+			{
+				OnCollectBall(BallColor.Red);
+			}
+			for (var i = 0; i < greenNum; i++)
+			{
+				OnCollectBall(BallColor.Green);
+			}
+			for (var i = 0; i < blueNum; i++)
+			{
+				OnCollectBall(BallColor.Blue);
 			}
 		}
 
@@ -373,10 +429,6 @@ namespace CGJ2023
 				{
 					themeScore = value;
 					HasChanges = true;
-				}
-				if (themeScore > 10)
-                {
-					OnRedTheamScoreFull();
 				}
 				if (themeScore >= 100)
                 {
