@@ -5,7 +5,14 @@ public class SoundManager : MonoBehaviour
 {
 	void Awake()
 	{
-		DontDestroyOnLoad(this);
+		if (GameObject.FindGameObjectsWithTag("SoundManager").Length > 1)
+		{
+			Destroy(gameObject);
+		}
+		else
+		{
+			DontDestroyOnLoad(this);
+		}
 	}
 
 	void Start()
