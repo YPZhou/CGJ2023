@@ -55,6 +55,7 @@ namespace CGJ2023
 				}
 				else
 				{
+					room.ComboCount = 0;
 					ball.AttachTo(this);
 				}
 			}
