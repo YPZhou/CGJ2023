@@ -34,6 +34,12 @@ namespace CGJ2023
 			}
 		}
 
+		public void AttachTo(BaseBall other)
+		{
+			transform.parent = other.transform;
+			transform.localPosition = transform.localPosition.normalized;
+		}
+
 		[SerializeField]
 		public BallColor BallColor;
 	}

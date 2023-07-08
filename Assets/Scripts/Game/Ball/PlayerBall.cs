@@ -46,11 +46,9 @@ namespace CGJ2023
 
 			if (ball != null)
 			{
-				var color = ball.BallColor;
-				var ballTransform = colliderGameObject.transform;
-
-				ballTransform.parent = transform;
-				ballTransform.localPosition = ballTransform.localPosition.normalized;
+				var color = ball.BallColor;	// do attach or destroy according to color
+				
+				ball.AttachTo(this);
 				
 				//Destroy(collider.gameObject);
 			}
