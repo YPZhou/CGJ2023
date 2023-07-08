@@ -191,9 +191,96 @@ namespace CGJ2023
 				return ((int)(spendTime / birthRateChangeDT)) * birthCountChangeDelta + initBirthCount;
 			}
 		}
-			
+
+        #endregion
+
+        #region Theam Score full
+
+        void OnTheamScoreFull()
+        {
+            switch (ThemeColor)
+            {
+				case BallColor.Red:
+					OnRedTheamScoreFull();
+					break;
+				case BallColor.Blue:
+					OnBlueTheamScoreFull();
+					break;
+				case BallColor.Green:
+					OnGreenTheamScoreFull();
+					break;
+            }
+        }
+
+		void OnRedTheamScoreFull()
+        {
+
+        }
+
+		void OnGreenTheamScoreFull()
+		{
+
+		}
+		void OnBlueTheamScoreFull()
+		{
+
+		}
+		
 		#endregion
 
+		public void OnCollectBall(BallColor color)
+        {
+			if (LastCollectedBallColor == color)
+            {
+				comboCount += 1;
+            }
+            else
+            {
+				comboCount = 1;
+				LastCollectedBallColor = color;
+            }
+			Score += ScoreOfCombo;
+			if (color == ThemeColor)
+            {
+				ThemeScore += ScoreOfCombo;
+            }
+        }
+				
+		public float ScoreOfCombo
+        {
+            get
+            {
+				if (ComboCount == 1)
+                {
+					return 0.5f;
+                }
+				else if (ComboCount <= 10){
+					return 1.0f;
+                }
+				else if (ComboCount <= 30)
+                {
+					return 3.0f;
+                }
+                else
+                {
+					return 5.0f;
+                }
+            }
+        }
+
+		public int ComboCount
+        {
+			get { return comboCount; }
+            set { comboCount = value; }
+        }
+		int comboCount;
+
+		BallColor LastCollectedBallColor
+        {
+            get { return lastCollectedBallColor; }
+            set { lastCollectedBallColor = value; }
+        }
+		BallColor lastCollectedBallColor;
 
 		public BallColor ThemeColor
 		{
@@ -210,7 +297,7 @@ namespace CGJ2023
 
 		BallColor themeColor;
 
-		public int Score
+		public float Score
 		{
 			get => score;
 			set
@@ -223,9 +310,9 @@ namespace CGJ2023
 			}
 		}
 
-		int score;
+		float score;
 
-		public int ThemeScore
+		public float ThemeScore
 		{
 			get => themeScore;
 			set
@@ -235,10 +322,15 @@ namespace CGJ2023
 					themeScore = value;
 					HasChanges = true;
 				}
+				if (themeScore == 100)
+                {
+					OnTheamScoreFull();
+					themeScore = 0;
+                }
 			}
 		}
 
-		int themeScore;
+		float themeScore;
 
 		public bool HasChanges { get; private set; }
 
