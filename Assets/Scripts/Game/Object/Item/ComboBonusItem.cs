@@ -5,12 +5,16 @@ namespace CGJ2023
 	/// </summary>
 	public class ComboCountItem : BaseItem
 	{
-		protected override void StartCore()
-		{
-		}
+        public override void ApplyEffect(PlayerBall player)
+        {
+        }
 
-		protected override void UpdateCore()
-		{
-		}
-	}
+        protected override void StartCore()
+        {
+        }
+
+        protected override void UpdateCore()
+        {
+        }
+    }
 }

@@ -5,12 +5,18 @@ namespace CGJ2023
 	/// </summary>
 	public class ClearAttachedBallItem : BaseItem
 	{
-		protected override void StartCore()
+
+        public override void ApplyEffect(PlayerBall player)
+        {
+            player.ClearAttachedBalls();
+        }
+
+        protected override void StartCore()
 		{
 		}
 
 		protected override void UpdateCore()
 		{
 		}
-	}
+    }
 }

@@ -7,6 +7,7 @@ namespace CGJ2023
 			Red,
 			Green,
 			Blue,
+			MAX
 		}
 	}
 }
