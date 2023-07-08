@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CGJ2023
 { 
-    public class ItemSpawner : BaseGameObject
+    public class ItemSpawner : MonoBehaviour
     {
         [SerializeField]
         bool Enabled = false;
@@ -23,7 +23,7 @@ namespace CGJ2023
         [SerializeField]
         List<GameObject> itemPrefabas = new();
 
-        protected override void StartCore()
+        void Start()
         {
             probSum = 0;
             foreach (var item in itemPrefabas)
@@ -34,7 +34,7 @@ namespace CGJ2023
             }
         }
 
-        protected override void UpdateCore()
+        void Update()
         {
             if (Enabled == false)
             {

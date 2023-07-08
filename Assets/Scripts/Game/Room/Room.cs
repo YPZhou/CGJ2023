@@ -136,6 +136,7 @@ namespace CGJ2023
 			if (availables.Count == 0)
             {
 				Debug.Log("Game Over!");
+				SceneManager.LoadScene("ResultScene");
 				return;
             }
 			for (var i=0; i<CurrentBirthRate && availables.Count>0; i++)
@@ -245,16 +246,29 @@ namespace CGJ2023
 
 		void OnRedTheamScoreFull()
         {
-
-        }
+			PlayerBall.GetComponent<PlayerBall>()?.ClearAttachedBalls();
+			while(collectableBalls.Count > 0)
+            {
+				var ball = collectableBalls[0];
+				ball.GetComponent<CollectableBall>()?.DestroyBall();
+			}
+		}
 
 		void OnGreenTheamScoreFull()
 		{
-
+			var availables = GetAvailablePositions();
+			for (var i = 0; i < 10 && availables.Count > 0; i++)
+			{
+				var index = availables.ElementAt<int>(random.Next(availables.Count));
+				availables.Remove(index);
+				var position = GetRandomPositionByIndex(index, true);
+				ItemSpawner.SpawnItem(position);
+			}
 		}
+
 		void OnBlueTheamScoreFull()
 		{
-
+			Score *= 2;
 		}
 		
 		#endregion
@@ -360,7 +374,11 @@ namespace CGJ2023
 					themeScore = value;
 					HasChanges = true;
 				}
-				if (themeScore == 100)
+				if (themeScore > 10)
+                {
+					OnRedTheamScoreFull();
+				}
+				if (themeScore >= 100)
                 {
 					OnTheamScoreFull();
 					themeScore = 0;
