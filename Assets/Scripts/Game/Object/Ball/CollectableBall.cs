@@ -113,29 +113,48 @@ namespace CGJ2023
 		public void DestroyBall()
 		{
 			room.collectableBalls.Remove(gameObject);
-			StartCoroutine(FadeOutAndDestroy(1f));
+			StartCoroutine(FadeOutAndDestroy(0.5f));
 		}
 
 		IEnumerator FadeOutAndDestroy(float time)
 		{
-			var rigidBody = GetComponent<Rigidbody2D>();
-			if (rigidBody != null)
+			if (time > 0f)
 			{
-				rigidBody.Sleep();
-			}
+				var rigidBody = GetComponent<Rigidbody2D>();
+				if (rigidBody != null)
+				{
+					rigidBody.Sleep();
+				}
 
-			var collider = GetComponent<Collider2D>();
-			if (collider != null)
-			{
-				collider.enabled = false;
-			}
+				var collider = GetComponent<Collider2D>();
+				if (collider != null)
+				{
+					collider.enabled = false;
+				}
 
-			var startTime = Time.time;
-			while (Time.time - startTime < time)
-			{
-				spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1 - (Time.time - startTime) / 0.5f);
-				transform.localScale = new Vector2(Time.time - startTime + 1f, Time.time - startTime + 1f);
-				yield return null;
+				if (gameObject.transform.childCount > 0)
+				{
+					for (var i = 0; i < gameObject.transform.childCount; i++)
+					{
+						var childTransform = gameObject.transform.GetChild(i);
+						Destroy(childTransform.gameObject);
+					}
+				}
+
+				var startTime = Time.time;
+				while (Time.time - startTime < time)
+				{
+					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1 - (Time.time - startTime) / time);
+
+					var parentScale = Vector2.one;
+					if (transform.parent != null)
+					{
+						parentScale = transform.parent.localScale;
+					}
+
+					transform.localScale = new Vector2((Time.time - startTime + 1f) / parentScale.x, (Time.time - startTime + 1f) / parentScale.y);
+					yield return null;
+				}
 			}
 
 			Destroy(gameObject);
