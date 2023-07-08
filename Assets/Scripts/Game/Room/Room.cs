@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static CGJ2023.Enums;
 
 namespace CGJ2023
@@ -25,6 +26,10 @@ namespace CGJ2023
 
 		void Update()
 		{
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				SceneManager.LoadScene("ResultScene");
+			}
 		}
 
         void FixedUpdate()
