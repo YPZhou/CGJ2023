@@ -274,7 +274,14 @@ namespace CGJ2023
 		public int ComboCount
         {
 			get { return comboCount; }
-            set { comboCount = value; }
+            set 
+			{
+				if (comboCount != value)
+				{
+					comboCount = value;
+					HasChanges = true;
+				}
+			}
         }
 		int comboCount;
 

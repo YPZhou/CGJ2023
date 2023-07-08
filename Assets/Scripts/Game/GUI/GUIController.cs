@@ -17,12 +17,17 @@ namespace CGJ2023
 				UpdateThemeColor();
 				UpdateScore();
 				UpdateThemeScore();
-
+				UpdateCombo();
 				room.ClearChanges();
 			}
 
 			UpdateTimer();
 		}
+
+		void UpdateCombo()
+        {
+			combo.text = room.ComboCount.ToString();
+        }
 
 		void UpdateThemeColor()
 		{
@@ -78,6 +83,9 @@ namespace CGJ2023
 
 		[SerializeField]
 		Text timer;
+
+		[SerializeField]
+		Text combo;
 
 		[SerializeField]
 		Room room;
