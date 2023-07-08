@@ -11,11 +11,9 @@ namespace CGJ2023
 
         [SerializeField]
         float itemSpawnTime;
-        public float SpawnTime => itemSpawnTime;
 
         [SerializeField]
         float nextSpawnTime;
-        public float NextSpawnTime => nextSpawnTime;
 
         int probSum;
         List<int> probs = new List<int>();
@@ -23,7 +21,7 @@ namespace CGJ2023
         [SerializeField]
         List<GameObject> itemPrefabas = new();
 
-        void Start()
+        private void Start()
         {
             probSum = 0;
             foreach (var item in itemPrefabas)
@@ -34,7 +32,7 @@ namespace CGJ2023
             }
         }
 
-        void Update()
+        private void UpdateCore()
         {
             if (Enabled == false)
             {
@@ -64,10 +62,9 @@ namespace CGJ2023
             }
             GameObject itemPrefab = itemPrefabas[type];
             var item = GameObject.Instantiate(itemPrefab, pos, Quaternion.identity);
-            nextSpawnTime = SpawnTime;
+            nextSpawnTime = itemSpawnTime;
 
-            Debug.Log($"ItemSpawner: Spawning item: {item.GetComponent<BaseItem>().GetType().Name}");
+            Debug.Log($"ItemSpawner: Time:{Time.fixedTime} Spawning item: {item.GetComponent<BaseItem>().GetType().Name}");
         }
-
     }
 }
