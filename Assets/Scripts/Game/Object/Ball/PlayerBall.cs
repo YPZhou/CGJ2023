@@ -37,7 +37,27 @@ namespace CGJ2023
             }
 
             transform.position = transform.position + moveDirection.normalized * moveSpeed * Time.deltaTime;
-        }
+            
+            if (transform.position.x < -8.6f)
+            {
+                transform.position = new Vector3(-8.6f, transform.position.y);
+            }
+
+			if (transform.position.x > 8.6f)
+			{
+				transform.position = new Vector3(8.6f, transform.position.y);
+			}
+
+            if (transform.position.y > 4.7f)
+            {
+                transform.position = new Vector3(transform.position.x, 4.7f);
+            }
+
+			if (transform.position.y < -4.7f)
+			{
+				transform.position = new Vector3(transform.position.x, -4.7f);
+			}
+		}
 
         void OnCollisionEnter2D(Collision2D collision)
         {
