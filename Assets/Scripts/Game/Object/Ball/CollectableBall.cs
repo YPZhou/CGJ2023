@@ -32,13 +32,13 @@ namespace CGJ2023
 			switch (BallColor)
 			{
 				case BallColor.Red:
-					spriteRenderer.color = new Color(1f, 0f, 0f, spriteRenderer.color.a);
+					spriteRenderer.color = Color.red;
 					break;
 				case BallColor.Blue:
-					spriteRenderer.color = new Color(0f, 0f, 1f, spriteRenderer.color.a);
+					spriteRenderer.color = Color.blue;
 					break;
 				case BallColor.Green:
-					spriteRenderer.color = new Color(0f, 1f, 0f, spriteRenderer.color.a);
+					spriteRenderer.color = Color.green;
 					break;
 			}
 		}
@@ -88,18 +88,12 @@ namespace CGJ2023
 
 		void PushToAttachedBall()
 		{
-			if (IsAttached && transform.localPosition.sqrMagnitude > 0.5f)
+			if (IsAttached && transform.localPosition.sqrMagnitude > 1f)
 			{
 				var rigidBody = GetComponent<Rigidbody2D>();
 				if (rigidBody != null)
 				{
-					var forceFactor = 0.2f;
-					if (transform.localPosition.sqrMagnitude > 1f)
-					{
-						forceFactor = 1f;
-					}
-
-					rigidBody.AddForce(-transform.localPosition * forceFactor);
+					rigidBody.AddForce(-transform.localPosition * 0.2f);
 				}
 
 				transform.localRotation = Quaternion.identity;
@@ -116,75 +110,32 @@ namespace CGJ2023
 
 		public bool IsAttached => attachedBall != null;
 
-		public void InitializeBall()
-		{
-			if (spriteRenderer == null)
-			{
-				spriteRenderer = GetComponent<SpriteRenderer>();
-			}
-
-			StartCoroutine(FadeIn(0.5f));
-		}
-
-		IEnumerator FadeIn(float time)
-		{
-			if (time > 0f)
-			{
-				var startTime = Time.time;
-				while (Time.time - startTime < time)
-				{
-					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, (Time.time - startTime) / time);
-					yield return null;
-				}
-			}
-		}
-
 		public void DestroyBall()
 		{
 			room.collectableBalls.Remove(gameObject);
-			StartCoroutine(FadeOutAndDestroy(0.5f));
+			StartCoroutine(FadeOutAndDestroy(1f));
 		}
 
 		IEnumerator FadeOutAndDestroy(float time)
 		{
-			if (time > 0f)
+			var rigidBody = GetComponent<Rigidbody2D>();
+			if (rigidBody != null)
 			{
-				var rigidBody = GetComponent<Rigidbody2D>();
-				if (rigidBody != null)
-				{
-					rigidBody.Sleep();
-				}
+				rigidBody.Sleep();
+			}
 
-				var collider = GetComponent<Collider2D>();
-				if (collider != null)
-				{
-					collider.enabled = false;
-				}
+			var collider = GetComponent<Collider2D>();
+			if (collider != null)
+			{
+				collider.enabled = false;
+			}
 
-				if (gameObject.transform.childCount > 0)
-				{
-					for (var i = 0; i < gameObject.transform.childCount; i++)
-					{
-						var childTransform = gameObject.transform.GetChild(i);
-						Destroy(childTransform.gameObject);
-					}
-				}
-
-				spriteRenderer.sortingOrder = 100;
-				var startTime = Time.time;
-				while (Time.time - startTime < time)
-				{
-					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1 - (Time.time - startTime) / time);
-
-					var parentScale = Vector2.one;
-					if (transform.parent != null)
-					{
-						parentScale = transform.parent.localScale;
-					}
-
-					transform.localScale = new Vector2((Time.time - startTime + 1f) / parentScale.x, (Time.time - startTime + 1f) / parentScale.y);
-					yield return null;
-				}
+			var startTime = Time.time;
+			while (Time.time - startTime < time)
+			{
+				spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1 - (Time.time - startTime) / 0.5f);
+				transform.localScale = new Vector2(Time.time - startTime + 1f, Time.time - startTime + 1f);
+				yield return null;
 			}
 
 			Destroy(gameObject);
@@ -193,8 +144,8 @@ namespace CGJ2023
 		void OnCollisionEnter2D(Collision2D collision)
 		{
 			var colliderGameObject = collision.gameObject;
-
 			var ball = colliderGameObject.GetComponent<CollectableBall>();
+
 			if (ball != null
 				&& BallColor == ball.BallColor
 				&& (IsAttached || ball.IsAttached))
@@ -203,16 +154,6 @@ namespace CGJ2023
 				if (playerBall != null)
 				{
 					ball.AttachTo(playerBall);
-				}
-			}
-
-			if (ball != null && !ball.IsAttached)
-			{
-				var rigidBody = ball.GetComponent<Rigidbody2D>();
-				if (rigidBody != null)
-				{
-					var pushDirection = colliderGameObject.transform.position - transform.position;
-					rigidBody.AddForce(pushDirection.normalized * 4f, ForceMode2D.Impulse);
 				}
 			}
 		}

@@ -16,9 +16,9 @@ namespace CGJ2023
 
 		public List<GameObject> collectableBalls = new List<GameObject>();
 
-		const int birthRate = 5;
-		const int initBirthCount = 10;
-		const int birthRateChangeDT = 30;
+		const int birthRate = 3;
+		const int initBirthCount = 20;
+		const int birthRateChangeDT = 10;
 		const int birthCountChangeDelta = 10;
 		int birthTimes = 0;
 		float spendTime = 0;
@@ -150,51 +150,47 @@ namespace CGJ2023
         {
 			var position = GetRandomPositionByIndex(index, true);
 			var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Ball.prefab", typeof(GameObject)) as GameObject;
-
 			var ball = GameObject.Instantiate(collentableBallPrefab, position, Quaternion.identity);
 			collectableBalls.Add(ball);
-			var collectableBall = ball.GetComponent<CollectableBall>();
-			collectableBall.InitializeBall();
-
-			if (Random.Range(0.0f, 1.0f) > 0.6)
+			if (Random.Range(0.0f, 1.0f) > 0.5)
             {
 				switch (ThemeColor)
                 {
 					case BallColor.Red:
 						if (Random.Range(0.0f, 1.0f) > 0.5f)
                         {
-							collectableBall.BallColor = BallColor.Blue;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Blue;
 						}
                         else
                         {
-							collectableBall.BallColor = BallColor.Green;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Green;
 						}
 						break;
 					case BallColor.Green:
 						if (Random.Range(0.0f, 1.0f) > 0.5f)
 						{
-							collectableBall.BallColor = BallColor.Blue;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Blue;
 						}
 						else
 						{
-							collectableBall.BallColor = BallColor.Red;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Red;
 						}
 						break;
 					case BallColor.Blue:
 						if (Random.Range(0.0f, 1.0f) > 0.5f)
 						{
-							collectableBall.BallColor = BallColor.Red;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Red;
 						}
 						else
 						{
-							collectableBall.BallColor = BallColor.Green;
+							ball.GetComponent<CollectableBall>().BallColor = BallColor.Green;
 						}
 						break;
                 }
             }
             else
             {
-				collectableBall.BallColor = ThemeColor;
+				ball.GetComponent<CollectableBall>().BallColor = ThemeColor;
 			}
 			return ball;
 		}
