@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static CGJ2023.Enums;
@@ -86,25 +85,28 @@ namespace CGJ2023
 
         void CreatePlayerBall()
         {
-            var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Player.prefab", typeof(GameObject)) as GameObject;
-            PlayerBall = GameObject.Instantiate(collentableBallPrefab, new Vector2(0, 0), Quaternion.identity);
-            PlayerBall.name = "PlayerBall";
+            if (playerBallPrefab != null)
+            {
+                PlayerBall = GameObject.Instantiate(playerBallPrefab, new Vector2(0, 0), Quaternion.identity);
+                PlayerBall.name = "PlayerBall";
+            }
         }
 
         void InitAvailablePositions()
         {
-            var availableIndicator = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/AvailableIndicator.prefab", typeof(GameObject)) as GameObject;
-
-            for (var i = 0; i < PositionsPerLine; i++)
+            if (indicatorPrefab != null)
             {
-                for (var j = 0; j < positionsPerColumn; j++)
+                for (var i = 0; i < PositionsPerLine; i++)
                 {
-                    var position = GetRandomPositionByIndex(i * PositionsPerLine + j, false);
-                    var indicator = GameObject.Instantiate(availableIndicator, position, Quaternion.identity);
-                    indicator.name = string.Format("Indicator_{0}_{1}", i, j);
-                    indicator.transform.localScale = new Vector3((BallRadius + RandomRange) * 2, (BallRadius + RandomRange) * 2, 1);
-                    indicator.GetComponent<AvailableIndicator>().Index = i * PositionsPerLine + j;
-                    availableIndicators.Add(indicator);
+                    for (var j = 0; j < positionsPerColumn; j++)
+                    {
+                        var position = GetRandomPositionByIndex(i * PositionsPerLine + j, false);
+                        var indicator = GameObject.Instantiate(indicatorPrefab, position, Quaternion.identity);
+                        indicator.name = string.Format("Indicator_{0}_{1}", i, j);
+                        indicator.transform.localScale = new Vector3((BallRadius + RandomRange) * 2, (BallRadius + RandomRange) * 2, 1);
+                        indicator.GetComponent<AvailableIndicator>().Index = i * PositionsPerLine + j;
+                        availableIndicators.Add(indicator);
+                    }
                 }
             }
         }
@@ -152,54 +154,59 @@ namespace CGJ2023
         GameObject DoCreateOneBall(int index)
         {
             var position = GetRandomPositionByIndex(index, true);
-            var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Ball.prefab", typeof(GameObject)) as GameObject;
 
-            var ball = GameObject.Instantiate(collentableBallPrefab, position, Quaternion.identity);
-            collectableBalls.Add(ball);
-            var collectableBall = ball.GetComponent<CollectableBall>();
-            collectableBall.InitializeBall();
-
-            if (Random.Range(0.0f, 1.0f) > 0.6)
+            if (collectableBallPrefab != null)
             {
-                switch (ThemeColor)
+                var ball = GameObject.Instantiate(collectableBallPrefab, position, Quaternion.identity);
+                collectableBalls.Add(ball);
+                var collectableBall = ball.GetComponent<CollectableBall>();
+                collectableBall.InitializeBall();
+
+                if (Random.Range(0.0f, 1.0f) > 0.6)
                 {
-                    case BallColor.Red:
-                        if (Random.Range(0.0f, 1.0f) > 0.5f)
-                        {
-                            collectableBall.BallColor = BallColor.Blue;
-                        }
-                        else
-                        {
-                            collectableBall.BallColor = BallColor.Green;
-                        }
-                        break;
-                    case BallColor.Green:
-                        if (Random.Range(0.0f, 1.0f) > 0.5f)
-                        {
-                            collectableBall.BallColor = BallColor.Blue;
-                        }
-                        else
-                        {
-                            collectableBall.BallColor = BallColor.Red;
-                        }
-                        break;
-                    case BallColor.Blue:
-                        if (Random.Range(0.0f, 1.0f) > 0.5f)
-                        {
-                            collectableBall.BallColor = BallColor.Red;
-                        }
-                        else
-                        {
-                            collectableBall.BallColor = BallColor.Green;
-                        }
-                        break;
+                    switch (ThemeColor)
+                    {
+                        case BallColor.Red:
+                            if (Random.Range(0.0f, 1.0f) > 0.5f)
+                            {
+                                collectableBall.BallColor = BallColor.Blue;
+                            }
+                            else
+                            {
+                                collectableBall.BallColor = BallColor.Green;
+                            }
+                            break;
+                        case BallColor.Green:
+                            if (Random.Range(0.0f, 1.0f) > 0.5f)
+                            {
+                                collectableBall.BallColor = BallColor.Blue;
+                            }
+                            else
+                            {
+                                collectableBall.BallColor = BallColor.Red;
+                            }
+                            break;
+                        case BallColor.Blue:
+                            if (Random.Range(0.0f, 1.0f) > 0.5f)
+                            {
+                                collectableBall.BallColor = BallColor.Red;
+                            }
+                            else
+                            {
+                                collectableBall.BallColor = BallColor.Green;
+                            }
+                            break;
+                    }
                 }
-            }
-            else
-            {
-                collectableBall.BallColor = ThemeColor;
-            }
-            return ball;
+                else
+                {
+                    collectableBall.BallColor = ThemeColor;
+                }
+
+				return ball;
+			}
+
+            return null;
         }
 
         Vector2 GetRandomPositionByIndex(int index, bool random)
@@ -451,5 +458,14 @@ namespace CGJ2023
         {
             HasChanges = false;
         }
+
+        [SerializeField]
+        GameObject playerBallPrefab;
+
+        [SerializeField]
+        GameObject collectableBallPrefab;
+
+        [SerializeField]
+        GameObject indicatorPrefab;
     }
 }

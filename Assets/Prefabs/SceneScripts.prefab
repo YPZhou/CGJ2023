@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8341440620668689207
 MonoBehaviour:
@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293d918dd915b441b8e45df19640e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectableBalls: []
+  playerBallPrefab: {fileID: 1667926337549479351, guid: d02855948c67f8441a1c4a7df9b1a81f, type: 3}
+  collectableBallPrefab: {fileID: 6342838931419933039, guid: c5333066ab14c764085b107252c91075, type: 3}
+  indicatorPrefab: {fileID: 8971105740466128003, guid: db2782448afcb234ea782a0cf83552b7, type: 3}
