@@ -48,9 +48,9 @@ namespace CGJ2023
 				transform.position = new Vector3(8.6f, transform.position.y);
 			}
 
-            if (transform.position.y > 4.7f)
+            if (transform.position.y > 3.5f)
             {
-                transform.position = new Vector3(transform.position.x, 4.7f);
+                transform.position = new Vector3(transform.position.x, 3.5f);
             }
 
 			if (transform.position.y < -4.7f)
