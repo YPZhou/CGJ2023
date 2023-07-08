@@ -58,6 +58,7 @@ namespace CGJ2023
                     room.ComboCount = 0;
                     ball.AttachTo(this);
                 }
+                attachedBalls.Add(ball);
             }
             else if (item != null)
             {
@@ -69,7 +70,12 @@ namespace CGJ2023
         #region ItemEffects
         public void ClearAttachedBalls()
         {
-
+            //TODO
+            //foreach (var ball in attachedBalls)
+            //{
+            //    Destroy(ball);
+            //}
+            //attachedBalls.Clear();
         }
 
         #endregion
@@ -77,6 +83,6 @@ namespace CGJ2023
         [SerializeField]
         float moveSpeed;
 
-        List<CollectableBall> attachedBalls = new();
+        HashSet<CollectableBall> attachedBalls = new();
     }
 }

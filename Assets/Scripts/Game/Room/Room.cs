@@ -1,4 +1,3 @@
-using CGJ2023.Item;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -32,9 +31,13 @@ namespace CGJ2023
 		int PositionsPerLine = Mathf.FloorToInt((Right - Left) / ((BallRadius + RandomRange) * 2));
 		int positionsPerColumn = Mathf.FloorToInt((Top - Bottom) / ((BallRadius + RandomRange) * 2));
 		List<GameObject> availableIndicators = new List<GameObject>();
-		#endregion
+        #endregion
 
-		void Start()
+        #region item management
+		ItemSpawner ItemSpawner = null;
+        #endregion
+
+        void Start()
 		{
 			ThemeColor = BallColor.Red;
 			Score = 0;
@@ -42,7 +45,10 @@ namespace CGJ2023
 
 			InitAvailablePositions();
 			CreatePlayerBall();
-		}
+
+            ItemSpawner = GetComponent<ItemSpawner>();
+
+        }
 
 		void Update()
 		{
@@ -54,12 +60,29 @@ namespace CGJ2023
 
         void FixedUpdate()
         {
-			TryCreateBalls();
+            TryCreateBalls();
+
+            TryCreatItems();
         }
 
-		#region create balls
+        private void TryCreatItems()
+        {
+            if (ItemSpawner.CanSpawnNow())
+            {
+                var availables = GetAvailablePositions();
+                for (var i = 0; i < CurrentBirthRate && availables.Count > 0; i++)
+                {
+                    var index = availables.ElementAt<int>(random.Next(availables.Count));
+                    availables.Remove(index);
+                    var position = GetRandomPositionByIndex(index, true);
+                    ItemSpawner.SpawnItem(position);
+                }
+            }
+        }
 
-		void CreatePlayerBall()
+        #region create balls
+
+        void CreatePlayerBall()
         {
 			var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Player.prefab", typeof(GameObject)) as GameObject;
 			PlayerBall = GameObject.Instantiate(collentableBallPrefab, new Vector2(0, 0), Quaternion.identity);
