@@ -67,14 +67,15 @@ namespace CGJ2023
 		public void FinishCurrentPush()
 		{
 			RemainingPushCount -= 1;
-			if (RemainingPushCount == 0)
+
+			if (Score >= TargetScore)
 			{
-				if (Score >= TargetScore)
-				{
-					difficultyLevel += 1;
-					SetGoalByDifficulty();
-				}
-				else
+				difficultyLevel += 1;
+				SetGoalByDifficulty();
+			}
+			else if (RemainingPushCount == 0)
+			{
+				if (Score < TargetScore)
 				{
 					GameOver();
 				}
