@@ -19,7 +19,17 @@ namespace CGJ2023
 		{
 			if (shouldDestroy)
 			{
-				DestroyBall();
+				DestroyBall(shootBall: true);
+			}
+
+			if (IsShooting)
+			{
+				var rigidBody = GetComponent<Rigidbody2D>();
+				if (rigidBody != null && rigidBody.velocity.sqrMagnitude < 0.1f)
+				{
+					IsShooting = false;
+					DestroyBall();
+				}
 			}
 
 			SetSpriteColorToBallColor();
@@ -56,7 +66,7 @@ namespace CGJ2023
 					{
 						if (ball != null)
 						{
-							if (ball.BallColor == BallColor)
+							//if (ball.BallColor == BallColor)
 							{
 								if (ball.shouldDestroy)
 								{
@@ -140,9 +150,16 @@ namespace CGJ2023
 			}
 		}
 
-		public void DestroyBall()
+		public void DestroyBall(bool shootBall = false)
 		{
-			if (!isDestroying)
+			if (shootBall)
+			{
+				var rigidBody = GetComponent<Rigidbody2D>();
+				rigidBody.AddForce(transform.localPosition.normalized * 0.01f, ForceMode2D.Impulse);
+				attachedBall = null;
+				IsShooting = true;
+			}
+			else if (!isDestroying)
 			{
 				isDestroying = true;
 
@@ -161,6 +178,8 @@ namespace CGJ2023
 				StartCoroutine(FadeOutAndDestroy(0.5f));
 			}
 		}
+
+		public bool IsShooting { get; private set; }
 
 		IEnumerator FadeOutAndDestroy(float time)
 		{
@@ -223,15 +242,15 @@ namespace CGJ2023
 				}
 			}
 
-			if (ball != null && !ball.IsAttached)
-			{
-				var rigidBody = ball.GetComponent<Rigidbody2D>();
-				if (rigidBody != null)
-				{
-					var pushDirection = colliderGameObject.transform.position - transform.position;
-					rigidBody.AddForce(pushDirection.normalized * 4f, ForceMode2D.Impulse);
-				}
-			}
+			//if (ball != null && !ball.IsAttached)
+			//{
+			//	var rigidBody = ball.GetComponent<Rigidbody2D>();
+			//	if (rigidBody != null)
+			//	{
+			//		var pushDirection = colliderGameObject.transform.position - transform.position;
+			//		rigidBody.AddForce(pushDirection.normalized * 4f, ForceMode2D.Impulse);
+			//	}
+			//}
 		}
 
 		[SerializeField]
