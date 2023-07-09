@@ -43,7 +43,7 @@ namespace CGJ2023
 
 		void Start()
 		{
-			ThemeColor = BallColor.Red;
+			ThemeColor = BallColor.Green;
 			Score = 0;
 			ThemeScore = 0;
 
@@ -84,7 +84,7 @@ namespace CGJ2023
 		void SetGoalByDifficulty()
 		{
 			RemainingPushCount += 5 + difficultyLevel;
-			TargetScore += 10 + 10 * difficultyLevel;
+			TargetScore += 5 + 5 * difficultyLevel;
 
 			DoCreateBalls();
             gUIController.ShouUpNextDifficultyTips(2, TargetScore, RemainingPushCount);
@@ -407,20 +407,21 @@ namespace CGJ2023
 
 		public void OnCollectBall(BallColor color)
 		{
-			if (LastCollectedBallColor == color)
-			{
-				comboCount += 1;
-			}
-			else
-			{
-				comboCount = 1;
-				LastCollectedBallColor = color;
-			}
-			Score += ScoreOfCombo;
-			if (color == ThemeColor)
-			{
-				ThemeScore += ScoreOfCombo;
-			}
+			//if (LastCollectedBallColor == color)
+			//{
+			//	comboCount += 1;
+			//}
+			//else
+			//{
+			//	comboCount = 1;
+			//	LastCollectedBallColor = color;
+			//}
+			//Score += ScoreOfCombo;
+			//if (color == ThemeColor)
+			//{
+			//	ThemeScore += ScoreOfCombo;
+			//}
+			Score += 1;
 		}
 
 		public float ScoreOfCombo
