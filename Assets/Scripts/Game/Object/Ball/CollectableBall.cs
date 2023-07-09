@@ -24,7 +24,7 @@ namespace CGJ2023
 
 			SetSpriteColorToBallColor();
 			MarkForDestroy();
-			PushToAttachedBall();
+			//PushToAttachedBall();
 		}
 		 
 		void SetSpriteColorToBallColor()

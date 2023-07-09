@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CGJ2023
@@ -79,26 +80,28 @@ namespace CGJ2023
 			//}
 
 			var rigidBody = GetComponent<Rigidbody2D>();
-			if (canPush)
+			if (rigidBody != null)
 			{
-				if (Input.GetMouseButtonDown(0))
+				if (canPush)
 				{
-					if (rigidBody != null)
+					if (Input.GetMouseButtonDown(0))
 					{
 						var pushDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 						rigidBody.AddForce(pushDirection.normalized * pushForce, ForceMode2D.Impulse);
 						canPush = false;
 					}
 				}
-			}
 
-			if (!canPush)
-			{
-				canPush = rigidBody.velocity.sqrMagnitude < 0.01f;
-				if (canPush)
+				DragAllAttachedBalls(rigidBody.velocity);
+
+				if (!canPush)
 				{
-					room.FinishCurrentPush();
+					canPush = rigidBody.velocity.sqrMagnitude < 0.01f;
+					if (canPush)
+					{
+						room.FinishCurrentPush();
 
+					}
 				}
 			}
 
@@ -123,6 +126,16 @@ namespace CGJ2023
         }
 
 		bool canPush;
+
+		void DragAllAttachedBalls(Vector3 velocity)
+		{
+			var attachedBalls = room.collectableBalls.Select(obj => obj.GetComponent<CollectableBall>()).Where(ball => ball.IsAttached);
+			foreach (var attachedBall in attachedBalls)
+			{
+				var rigidBody = attachedBall.GetComponent<Rigidbody2D>();
+				rigidBody.velocity = velocity;
+			}
+		}
 
 		void OnCollisionEnter2D(Collision2D collision)
 		{
