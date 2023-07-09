@@ -82,7 +82,7 @@ namespace CGJ2023
 			}
 			else
 			{
-				var nonAttachedBalls = collectableBalls.Select(obj => obj.GetComponent<CollectableBall>()).Where(ball => !ball.IsAttached);
+				var nonAttachedBalls = collectableBalls.Select(obj => obj.GetComponent<CollectableBall>()).Where(ball => !ball.IsAttached && !ball.IsShooting);
 				if (!nonAttachedBalls.Any())
 				{
 					DoCreateBalls();
