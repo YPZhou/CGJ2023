@@ -81,7 +81,9 @@ namespace CGJ2023
 		void SetGoalByDifficulty()
 		{
 			RemainingPushCount += 5 + difficultyLevel;
-			TargetScore += 50 + 10 * difficultyLevel;
+			TargetScore += 10 + 10 * difficultyLevel;
+
+			DoCreateBalls();
 		}
 
 		void GameOver()
@@ -200,15 +202,8 @@ namespace CGJ2023
 
 		void DoCreateBalls()
 		{
-			birthTimes += 1;
+			//birthTimes += 1;
 			var availables = GetAvailablePositions();
-			if (availables.Count == 0)
-			{
-				Debug.Log("Game Over!");
-				GameOver();
-
-				return;
-			}
 			for (var i = 0; i < CurrentBirthRate && availables.Count > 0; i++)
 			{
 				var index = availables.ElementAt<int>(random.Next(availables.Count));
