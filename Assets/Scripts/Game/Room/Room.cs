@@ -6,14 +6,14 @@ using static CGJ2023.Enums;
 
 namespace CGJ2023
 {
-    public class Room : MonoBehaviour
-    {
-        public static readonly System.Random random = new System.Random();
+	public class Room : MonoBehaviour
+	{
+		public static readonly System.Random random = new System.Random();
 
-        #region create balls
-        GameObject PlayerBall;
+		#region create balls
+		GameObject PlayerBall;
 
-        public List<GameObject> collectableBalls = new List<GameObject>();
+		public List<GameObject> collectableBalls = new List<GameObject>();
 
 		const int birthRate = 3;
 		const int initBirthCount = 20;
@@ -31,242 +31,242 @@ namespace CGJ2023
 		int positionsPerColumn = Mathf.FloorToInt((Top - Bottom) / ((BallRadius + RandomRange) * 2)) + 1;
 		List<GameObject> availableIndicators = new List<GameObject>();
 
-        public int BallBirthSpeedModifier = 0;
-        #endregion
+		public int BallBirthSpeedModifier = 0;
+		#endregion
 
-        #region item management
-        ItemSpawner itemSpawner = null;
-        public ItemSpawner ItemSpawner => itemSpawner;
-        #endregion
+		#region item management
+		ItemSpawner itemSpawner = null;
+		public ItemSpawner ItemSpawner => itemSpawner;
+		#endregion
 
-        void Start()
-        {
-            ThemeColor = BallColor.Red;
-            Score = 0;
-            ThemeScore = 0;
+		void Start()
+		{
+			ThemeColor = BallColor.Red;
+			Score = 0;
+			ThemeScore = 0;
 
-            InitAvailablePositions();
-            CreatePlayerBall();
+			InitAvailablePositions();
+			CreatePlayerBall();
 
-            itemSpawner = GetComponent<ItemSpawner>();
+			itemSpawner = GetComponent<ItemSpawner>();
 
-        }
+		}
 
-        void FixedUpdate()
-        {
-            TryCreateBalls();
+		void FixedUpdate()
+		{
+			TryCreateBalls();
 
-            TryCreatItems();
-        }
+			TryCreatItems();
+		}
 
-        private void TryCreatItems()
-        {
-            if (itemSpawner.CanSpawnNow())
-            {
-                var availables = GetAvailablePositions();
-                if (availables.Count == 0)
-                {
-                    return;
-                }
+		private void TryCreatItems()
+		{
+			//if (itemSpawner.CanSpawnNow())
+			//{
+			//    var availables = GetAvailablePositions();
+			//    if (availables.Count == 0)
+			//    {
+			//        return;
+			//    }
 
-                var index = availables.ElementAt<int>(random.Next(availables.Count));
-                var pos = GetRandomPositionByIndex(index, true);
-                itemSpawner.SpawnItem(pos);
-                availables.Remove(index);
-            }
-        }
+			//    var index = availables.ElementAt<int>(random.Next(availables.Count));
+			//    var pos = GetRandomPositionByIndex(index, true);
+			//    itemSpawner.SpawnItem(pos);
+			//    availables.Remove(index);
+			//}
+		}
 
-        #region create balls
+		#region create balls
 
-        void CreatePlayerBall()
-        {
-            if (playerBallPrefab != null)
-            {
-                PlayerBall = GameObject.Instantiate(playerBallPrefab, new Vector2(0, 0), Quaternion.identity);
-                PlayerBall.name = "PlayerBall";
-            }
-        }
+		void CreatePlayerBall()
+		{
+			if (playerBallPrefab != null)
+			{
+				PlayerBall = GameObject.Instantiate(playerBallPrefab, new Vector2(0, 0), Quaternion.identity);
+				PlayerBall.name = "PlayerBall";
+			}
+		}
 
-        void InitAvailablePositions()
-        {
-            if (indicatorPrefab != null)
-            {
-                for (var i = 0; i < PositionsPerLine; i++)
-                {
-                    for (var j = 0; j < positionsPerColumn; j++)
-                    {
-                        var position = GetRandomPositionByIndex(i * PositionsPerLine + j, false);
-                        var indicator = GameObject.Instantiate(indicatorPrefab, position, Quaternion.identity);
-                        indicator.name = string.Format("Indicator_{0}_{1}", i, j);
-                        indicator.transform.localScale = new Vector3((BallRadius + RandomRange) * 2, (BallRadius + RandomRange) * 2, 1);
-                        indicator.GetComponent<AvailableIndicator>().Index = i * PositionsPerLine + j;
-                        availableIndicators.Add(indicator);
-                    }
-                }
-            }
-        }
+		void InitAvailablePositions()
+		{
+			if (indicatorPrefab != null)
+			{
+				for (var i = 0; i < PositionsPerLine; i++)
+				{
+					for (var j = 0; j < positionsPerColumn; j++)
+					{
+						var position = GetRandomPositionByIndex(i * PositionsPerLine + j, false);
+						var indicator = GameObject.Instantiate(indicatorPrefab, position, Quaternion.identity);
+						indicator.name = string.Format("Indicator_{0}_{1}", i, j);
+						indicator.transform.localScale = new Vector3((BallRadius + RandomRange) * 2, (BallRadius + RandomRange) * 2, 1);
+						indicator.GetComponent<AvailableIndicator>().Index = i * PositionsPerLine + j;
+						availableIndicators.Add(indicator);
+					}
+				}
+			}
+		}
 
-        void TryCreateBalls()
-        {
-            spendTime += Time.deltaTime * (1+(float)BallBirthSpeedModifier/100);
+		void TryCreateBalls()
+		{
+			//spendTime += Time.deltaTime * (1+(float)BallBirthSpeedModifier/100);
 
-            if (birthTimes < (spendTime / birthRate))
-            {
-                DoCreateBalls();
-            }
-        }
+			//if (birthTimes < (spendTime / birthRate))
+			//{
+			//    DoCreateBalls();
+			//}
+		}
 
-        List<int> GetAvailablePositions()
-        {
-            List<int> availables = new List<int>();
-            availableIndicators.ForEach(indicator =>
-            {
-                if (indicator.GetComponent<AvailableIndicator>().IsAvailable)
-                {
-                    availables.Add(indicator.GetComponent<AvailableIndicator>().Index);
-                }
-            });
-            return availables;
-        }
+		List<int> GetAvailablePositions()
+		{
+			List<int> availables = new List<int>();
+			availableIndicators.ForEach(indicator =>
+			{
+				if (indicator.GetComponent<AvailableIndicator>().IsAvailable)
+				{
+					availables.Add(indicator.GetComponent<AvailableIndicator>().Index);
+				}
+			});
+			return availables;
+		}
 
-        void DoCreateBalls()
-        {
-            birthTimes += 1;
-            var availables = GetAvailablePositions();
-            if (availables.Count == 0)
-            {
+		void DoCreateBalls()
+		{
+			birthTimes += 1;
+			var availables = GetAvailablePositions();
+			if (availables.Count == 0)
+			{
 				Debug.Log("Game Over!");
-                var gameScene = GetComponent<GameScene>();
-                if (gameScene != null)
-                {
-                    gameScene.TransitToResultScene();
-                }
-                else
-                {
-                    SceneManager.LoadScene("ResultScene");
-                }
+				var gameScene = GetComponent<GameScene>();
+				if (gameScene != null)
+				{
+					gameScene.TransitToResultScene();
+				}
+				else
+				{
+					SceneManager.LoadScene("ResultScene");
+				}
 
 				return;
-            }
-            for (var i = 0; i < CurrentBirthRate && availables.Count > 0; i++)
-            {
-                var index = availables.ElementAt<int>(random.Next(availables.Count));
-                availables.Remove(index);
-                DoCreateOneBall(index);
-            }
-        }
+			}
+			for (var i = 0; i < CurrentBirthRate && availables.Count > 0; i++)
+			{
+				var index = availables.ElementAt<int>(random.Next(availables.Count));
+				availables.Remove(index);
+				DoCreateOneBall(index);
+			}
+		}
 
-        GameObject DoCreateOneBall(int index)
-        {
-            var position = GetRandomPositionByIndex(index, true);
+		GameObject DoCreateOneBall(int index)
+		{
+			var position = GetRandomPositionByIndex(index, true);
 
-            if (collectableBallPrefab != null)
-            {
-                var ball = GameObject.Instantiate(collectableBallPrefab, position, Quaternion.identity);
-                collectableBalls.Add(ball);
-                var collectableBall = ball.GetComponent<CollectableBall>();
-                collectableBall.InitializeBall();
+			if (collectableBallPrefab != null)
+			{
+				var ball = GameObject.Instantiate(collectableBallPrefab, position, Quaternion.identity);
+				collectableBalls.Add(ball);
+				var collectableBall = ball.GetComponent<CollectableBall>();
+				collectableBall.InitializeBall();
 
-                if (Random.Range(0.0f, 1.0f) > 0.6)
-                {
-                    switch (ThemeColor)
-                    {
-                        case BallColor.Red:
-                            if (Random.Range(0.0f, 1.0f) > 0.5f)
-                            {
-                                collectableBall.BallColor = BallColor.Blue;
-                            }
-                            else
-                            {
-                                collectableBall.BallColor = BallColor.Green;
-                            }
-                            break;
-                        case BallColor.Green:
-                            if (Random.Range(0.0f, 1.0f) > 0.5f)
-                            {
-                                collectableBall.BallColor = BallColor.Blue;
-                            }
-                            else
-                            {
-                                collectableBall.BallColor = BallColor.Red;
-                            }
-                            break;
-                        case BallColor.Blue:
-                            if (Random.Range(0.0f, 1.0f) > 0.5f)
-                            {
-                                collectableBall.BallColor = BallColor.Red;
-                            }
-                            else
-                            {
-                                collectableBall.BallColor = BallColor.Green;
-                            }
-                            break;
-                    }
-                }
-                else
-                {
-                    collectableBall.BallColor = ThemeColor;
-                }
+				if (Random.Range(0.0f, 1.0f) > 0.6)
+				{
+					switch (ThemeColor)
+					{
+						case BallColor.Red:
+							if (Random.Range(0.0f, 1.0f) > 0.5f)
+							{
+								collectableBall.BallColor = BallColor.Blue;
+							}
+							else
+							{
+								collectableBall.BallColor = BallColor.Green;
+							}
+							break;
+						case BallColor.Green:
+							if (Random.Range(0.0f, 1.0f) > 0.5f)
+							{
+								collectableBall.BallColor = BallColor.Blue;
+							}
+							else
+							{
+								collectableBall.BallColor = BallColor.Red;
+							}
+							break;
+						case BallColor.Blue:
+							if (Random.Range(0.0f, 1.0f) > 0.5f)
+							{
+								collectableBall.BallColor = BallColor.Red;
+							}
+							else
+							{
+								collectableBall.BallColor = BallColor.Green;
+							}
+							break;
+					}
+				}
+				else
+				{
+					collectableBall.BallColor = ThemeColor;
+				}
 
 				return ball;
 			}
 
-            return null;
-        }
+			return null;
+		}
 
-        Vector2 GetRandomPositionByIndex(int index, bool random)
-        {
-            int line = index % PositionsPerLine;
-            int cloumn = Mathf.FloorToInt(index / PositionsPerLine);
-            var centerX = (BallRadius + RandomRange) * 2 * cloumn + (BallRadius + RandomRange) + Left;
-            var centerY = (BallRadius + RandomRange) * 2 * line + (BallRadius + RandomRange) + Bottom;
-            if (random)
-            {
-                return new Vector2(centerX + Random.Range(-RandomRange, RandomRange), centerY + Random.Range(-RandomRange, RandomRange));
-            }
-            else
-            {
-                return new Vector2(centerX, centerY);
-            }
-        }
+		Vector2 GetRandomPositionByIndex(int index, bool random)
+		{
+			int line = index % PositionsPerLine;
+			int cloumn = Mathf.FloorToInt(index / PositionsPerLine);
+			var centerX = (BallRadius + RandomRange) * 2 * cloumn + (BallRadius + RandomRange) + Left;
+			var centerY = (BallRadius + RandomRange) * 2 * line + (BallRadius + RandomRange) + Bottom;
+			if (random)
+			{
+				return new Vector2(centerX + Random.Range(-RandomRange, RandomRange), centerY + Random.Range(-RandomRange, RandomRange));
+			}
+			else
+			{
+				return new Vector2(centerX, centerY);
+			}
+		}
 
-        int CurrentBirthRate
-        {
-            get
-            {
-                return ((int)(spendTime / birthRateChangeDT)) * birthCountChangeDelta + initBirthCount;
-            }
-        }
+		int CurrentBirthRate
+		{
+			get
+			{
+				return ((int)(spendTime / birthRateChangeDT)) * birthCountChangeDelta + initBirthCount;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Theam Score full
+		#region Theam Score full
 
-        void OnTheamScoreFull()
-        {
-            switch (ThemeColor)
-            {
-                case BallColor.Red:
-                    OnRedTheamScoreFull();
-                    break;
-                case BallColor.Blue:
-                    OnBlueTheamScoreFull();
-                    break;
-                case BallColor.Green:
-                    OnGreenTheamScoreFull();
-                    break;
-            }
-        }
+		void OnTheamScoreFull()
+		{
+			switch (ThemeColor)
+			{
+				case BallColor.Red:
+					OnRedTheamScoreFull();
+					break;
+				case BallColor.Blue:
+					OnBlueTheamScoreFull();
+					break;
+				case BallColor.Green:
+					OnGreenTheamScoreFull();
+					break;
+			}
+		}
 
-        void OnRedTheamScoreFull()
-        {
+		void OnRedTheamScoreFull()
+		{
 			int redNum = 0;
 			int blueNum = 0;
 			int greenNum = 0;
 			collectableBalls.ForEach(ball =>
 			{
-                switch (ball.GetComponent<CollectableBall>().BallColor)
-                {
+				switch (ball.GetComponent<CollectableBall>().BallColor)
+				{
 					case BallColor.Red:
 						redNum += 1;
 						break;
@@ -276,23 +276,23 @@ namespace CGJ2023
 					case BallColor.Green:
 						greenNum += 1;
 						break;
-                }
+				}
 			});
 			
 			PlayerBall.GetComponent<PlayerBall>()?.ClearAttachedBalls();
 			while(collectableBalls.Count > 0)
-            {
+			{
 				var ball = collectableBalls[0];
 				ball.GetComponent<CollectableBall>()?.DestroyBall();
 			}
 
-            switch (themeColor)
-            {
+			switch (themeColor)
+			{
 				case BallColor.Red:
 					for (var i=0; i<redNum; i++)
-                    {
+					{
 						OnCollectBall(BallColor.Red);
-                    }
+					}
 					redNum = 0;
 					break;
 				case BallColor.Blue:
@@ -326,17 +326,17 @@ namespace CGJ2023
 
 		void OnGreenTheamScoreFull()
 		{
-            var availables = GetAvailablePositions();
-            if (availables.Count == 0)
-            {
-                return;
-            }
+			var availables = GetAvailablePositions();
+			if (availables.Count == 0)
+			{
+				return;
+			}
 
-            var index = availables.ElementAt<int>(random.Next(availables.Count));
-            var pos = GetRandomPositionByIndex(index, true);
-            itemSpawner.SpawnItem(pos);
-            availables.Remove(index);
-        }
+			var index = availables.ElementAt<int>(random.Next(availables.Count));
+			var pos = GetRandomPositionByIndex(index, true);
+			itemSpawner.SpawnItem(pos);
+			availables.Remove(index);
+		}
 
 		void OnBlueTheamScoreFull()
 		{
@@ -345,97 +345,97 @@ namespace CGJ2023
 		
 		#endregion
 
-        public void OnCollectBall(BallColor color)
-        {
-            if (LastCollectedBallColor == color)
-            {
-                comboCount += 1;
-            }
-            else
-            {
-                comboCount = 1;
-                LastCollectedBallColor = color;
-            }
-            Score += ScoreOfCombo;
-            if (color == ThemeColor)
-            {
-                ThemeScore += ScoreOfCombo;
-            }
-        }
+		public void OnCollectBall(BallColor color)
+		{
+			if (LastCollectedBallColor == color)
+			{
+				comboCount += 1;
+			}
+			else
+			{
+				comboCount = 1;
+				LastCollectedBallColor = color;
+			}
+			Score += ScoreOfCombo;
+			if (color == ThemeColor)
+			{
+				ThemeScore += ScoreOfCombo;
+			}
+		}
 
-        public float ScoreOfCombo
-        {
-            get
-            {
-                if (ComboCount == 1)
-                {
-                    return 0.5f;
-                }
-                else if (ComboCount <= 10)
-                {
-                    return 1.0f;
-                }
-                else if (ComboCount <= 30)
-                {
-                    return 3.0f;
-                }
-                else
-                {
-                    return 5.0f;
-                }
-            }
-        }
+		public float ScoreOfCombo
+		{
+			get
+			{
+				if (ComboCount == 1)
+				{
+					return 0.5f;
+				}
+				else if (ComboCount <= 10)
+				{
+					return 1.0f;
+				}
+				else if (ComboCount <= 30)
+				{
+					return 3.0f;
+				}
+				else
+				{
+					return 5.0f;
+				}
+			}
+		}
 
-        public int ComboCount
-        {
-            get { return comboCount; }
-            set
-            {
-                if (comboCount != value)
-                {
-                    comboCount = value;
-                    HasChanges = true;
-                }
-            }
-        }
-        int comboCount;
+		public int ComboCount
+		{
+			get { return comboCount; }
+			set
+			{
+				if (comboCount != value)
+				{
+					comboCount = value;
+					HasChanges = true;
+				}
+			}
+		}
+		int comboCount;
 
-        BallColor LastCollectedBallColor
-        {
-            get { return lastCollectedBallColor; }
-            set { lastCollectedBallColor = value; }
-        }
-        BallColor lastCollectedBallColor;
+		BallColor LastCollectedBallColor
+		{
+			get { return lastCollectedBallColor; }
+			set { lastCollectedBallColor = value; }
+		}
+		BallColor lastCollectedBallColor;
 
-        public BallColor ThemeColor
-        {
-            get => themeColor;
-            set
-            {
-                if (themeColor != value)
-                {
-                    themeColor = value;
-                    HasChanges = true;
-                }
-            }
-        }
+		public BallColor ThemeColor
+		{
+			get => themeColor;
+			set
+			{
+				if (themeColor != value)
+				{
+					themeColor = value;
+					HasChanges = true;
+				}
+			}
+		}
 
-        BallColor themeColor;
+		BallColor themeColor;
 
-        public float Score
-        {
-            get => score;
-            set
-            {
-                if (score != value)
-                {
-                    score = value;
-                    HasChanges = true;
-                }
-            }
-        }
+		public float Score
+		{
+			get => score;
+			set
+			{
+				if (score != value)
+				{
+					score = value;
+					HasChanges = true;
+				}
+			}
+		}
 
-        float score;
+		float score;
 
 		public float ThemeScore
 		{
@@ -448,29 +448,29 @@ namespace CGJ2023
 					HasChanges = true;
 				}
 				if (themeScore >= 100)
-                {
-                    OnTheamScoreFull();
-                    themeScore = 0;
-                }
-            }
-        }
+				{
+					OnTheamScoreFull();
+					themeScore = 0;
+				}
+			}
+		}
 
-        float themeScore;
+		float themeScore;
 
-        public bool HasChanges { get; private set; }
+		public bool HasChanges { get; private set; }
 
-        public void ClearChanges()
-        {
-            HasChanges = false;
-        }
+		public void ClearChanges()
+		{
+			HasChanges = false;
+		}
 
-        [SerializeField]
-        GameObject playerBallPrefab;
+		[SerializeField]
+		GameObject playerBallPrefab;
 
-        [SerializeField]
-        GameObject collectableBallPrefab;
+		[SerializeField]
+		GameObject collectableBallPrefab;
 
-        [SerializeField]
-        GameObject indicatorPrefab;
-    }
+		[SerializeField]
+		GameObject indicatorPrefab;
+	}
 }
