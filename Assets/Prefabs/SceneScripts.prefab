@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5246966493993999190}
   - component: {fileID: 8341440620668689207}
   - component: {fileID: 3052240067578542901}
+  - component: {fileID: 7156859922856639370}
   m_Layer: 0
   m_Name: SceneScripts
   m_TagString: Untagged
@@ -47,8 +48,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectableBalls: []
   BallBirthSpeedModifier: 0
+  borders: []
   playerBallPrefab: {fileID: 1667926337549479351, guid: d02855948c67f8441a1c4a7df9b1a81f, type: 3}
   collectableBallPrefab: {fileID: 6342838931419933039, guid: c5333066ab14c764085b107252c91075, type: 3}
+  redBallSprite: {fileID: 21300000, guid: 6e5d85ccfc8f9b94698eaf3a4fb61495, type: 3}
+  greenBallSprite: {fileID: 21300000, guid: 2f68d55c8f157d44ebdf13bae6445e37, type: 3}
   indicatorPrefab: {fileID: 8971105740466128003, guid: db2782448afcb234ea782a0cf83552b7, type: 3}
 --- !u!114 &3052240067578542901
 MonoBehaviour:
@@ -72,3 +76,16 @@ MonoBehaviour:
   - {fileID: 6342838931419933039, guid: 8d64373df2d4eec48aeafe43f0fc34b9, type: 3}
   - {fileID: 6342838931419933039, guid: 1b9d446aef247d14eba12cec43f06feb, type: 3}
   - {fileID: 6342838931419933039, guid: f016d863ebbf5a645b39fb63fd6b1e99, type: 3}
+--- !u!114 &7156859922856639370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3433772103135460962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88de8d2786abed740ac95405fc699ab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeImage: {fileID: 0}

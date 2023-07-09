@@ -247,20 +247,28 @@ namespace CGJ2023
 							if (Random.Range(0.0f, 1.0f) > 0.5f)
 							{
 								collectableBall.BallColor = BallColor.Red;
+								collectableBall.GetComponent<SpriteRenderer>().sprite = redBallSprite;
+								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = redBallSprite;
 							}
 							else
 							{
 								collectableBall.BallColor = BallColor.Green;
+								collectableBall.GetComponent<SpriteRenderer>().sprite = greenBallSprite;
+								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = greenBallSprite;
 							}
 							break;
 						case BallColor.Green:
 							if (Random.Range(0.0f, 1.0f) > 0.5f)
 							{
 								collectableBall.BallColor = BallColor.Green;
+								collectableBall.GetComponent<SpriteRenderer>().sprite = greenBallSprite;
+								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = greenBallSprite;
 							}
 							else
 							{
 								collectableBall.BallColor = BallColor.Red;
+								collectableBall.GetComponent<SpriteRenderer>().sprite = redBallSprite;
+								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = redBallSprite;
 							}
 							break;
 						//case BallColor.Blue:
@@ -278,6 +286,8 @@ namespace CGJ2023
 				else
 				{
 					collectableBall.BallColor = ThemeColor;
+					collectableBall.GetComponent<SpriteRenderer>().sprite = greenBallSprite;
+					collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = greenBallSprite;
 				}
 
 				return ball;
@@ -542,6 +552,12 @@ namespace CGJ2023
 
 		[SerializeField]
 		GameObject collectableBallPrefab;
+
+		[SerializeField]
+		Sprite redBallSprite;
+
+		[SerializeField]
+		Sprite greenBallSprite;
 
 		[SerializeField]
 		GameObject indicatorPrefab;

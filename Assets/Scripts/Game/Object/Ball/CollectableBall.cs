@@ -12,7 +12,6 @@ namespace CGJ2023
 	{
 		protected override void StartCore()
 		{
-			SetSpriteColorToBallColor();
 		}
 
 		protected override void UpdateCore()
@@ -32,7 +31,6 @@ namespace CGJ2023
 				}
 			}
 
-			SetSpriteColorToBallColor();
 			MarkForDestroy();
 			//PushToAttachedBall();
 
@@ -46,22 +44,6 @@ namespace CGJ2023
 				{
 					shootIcon.enabled = false;
 				}
-			}
-		}
-		 
-		void SetSpriteColorToBallColor()
-		{
-			switch (BallColor)
-			{
-				case BallColor.Red:
-					spriteRenderer.color = new Color(1f, 0f, 0f, spriteRenderer.color.a);
-					break;
-				//case BallColor.Blue:
-				//	spriteRenderer.color = new Color(0f, 0f, 1f, spriteRenderer.color.a);
-				//	break;
-				case BallColor.Green:
-					spriteRenderer.color = new Color(0f, 1f, 0f, spriteRenderer.color.a);
-					break;
 			}
 		}
 
