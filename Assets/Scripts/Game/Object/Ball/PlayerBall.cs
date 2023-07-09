@@ -134,10 +134,11 @@ namespace CGJ2023
                 var distance = (mousePos - DirectionRender.position).magnitude - 10;
                 distance = Mathf.Clamp(Mathf.Sqrt(distance), 0.4f, Mathf.Sqrt(distance));
 
-            DirectionRender.localScale = new Vector3(DirectionRender.localScale.x, distance, DirectionRender.localScale.z);
-            DirectionRender.rotation = Quaternion.LookRotation(mousePos - DirectionRender.position, Vector3.forward);
+                DirectionRender.localScale = new Vector3(DirectionRender.localScale.x, distance, DirectionRender.localScale.z);
+                DirectionRender.rotation = Quaternion.LookRotation(mousePos - DirectionRender.position, Vector3.forward);
 
-            Debug.Log($"MousePos:{mousePos} Distance: {distance}");
+                Debug.Log($"MousePos:{mousePos} Distance: {distance}");
+            }
         }
 
         bool canPush;
