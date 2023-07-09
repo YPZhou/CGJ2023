@@ -35,6 +35,18 @@ namespace CGJ2023
 			SetSpriteColorToBallColor();
 			MarkForDestroy();
 			//PushToAttachedBall();
+
+			if (shootIcon != null)
+			{
+				if (IsShooting)
+				{
+					shootIcon.enabled = true;
+				}
+				else
+				{
+					shootIcon.enabled = false;
+				}
+			}
 		}
 		 
 		void SetSpriteColorToBallColor()
@@ -278,5 +290,8 @@ namespace CGJ2023
 
 		[SerializeField]
 		GameObject touchHint;
+
+		[SerializeField]
+		SpriteRenderer shootIcon;
 	}
 }
