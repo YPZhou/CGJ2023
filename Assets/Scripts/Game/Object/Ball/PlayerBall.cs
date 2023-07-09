@@ -84,11 +84,20 @@ namespace CGJ2023
 					{
 						var pushDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 						rigidBody.AddForce(pushDirection.normalized * pushForce, ForceMode2D.Impulse);
+						canPush = false;
 					}
 				}
 			}
 
-			canPush = rigidBody.velocity.sqrMagnitude < 0.01f;
+			if (!canPush)
+			{
+				canPush = rigidBody.velocity.sqrMagnitude < 0.01f;
+				if (canPush)
+				{
+					room.FinishCurrentPush();
+				}
+			}
+
 			if (playerIcon != null)
 			{
 				if (canPush)

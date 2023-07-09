@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using static CGJ2023.Enums;
@@ -14,9 +15,9 @@ namespace CGJ2023
 		{
 			if (room != null && room.HasChanges)
 			{
-				UpdateThemeColor();
+				UpdateRemainingPush();
 				UpdateScore();
-				UpdateThemeScore();
+				UpdateTargetScore();
 				UpdateCombo();
 				room.ClearChanges();
 			}
@@ -24,29 +25,18 @@ namespace CGJ2023
 			UpdateTimer();
 		}
 
+		void UpdateRemainingPush()
+		{
+			if (remainingPush != null)
+			{
+				remainingPush.text = room.RemainingPushCount.ToString();
+			}
+		}
+
 		void UpdateCombo()
         {
 			combo.text = room.ComboCount.ToString();
         }
-
-		void UpdateThemeColor()
-		{
-			if (themeColor != null)
-			{
-				switch (room.ThemeColor)
-				{
-					case BallColor.Red:
-						themeColor.color = Color.red;
-						break;
-					case BallColor.Green:
-						themeColor.color = Color.green;
-						break;
-					case BallColor.Blue:
-						themeColor.color = Color.blue;
-						break;
-				}
-			}
-		}
 
 		void UpdateScore()
 		{
@@ -56,11 +46,11 @@ namespace CGJ2023
 			}
 		}
 
-		void UpdateThemeScore()
+		void UpdateTargetScore()
 		{
-			if (themeScore != null)
+			if (targetScore != null)
 			{
-				themeScore.text = room.ThemeScore.ToString();
+				targetScore.text = room.TargetScore.ToString();
 			}
 		}
 
@@ -73,13 +63,13 @@ namespace CGJ2023
 		}
 
 		[SerializeField]
-		Image themeColor;
-
-		[SerializeField]
 		Text score;
 
 		[SerializeField]
-		Text themeScore;
+		Text targetScore;
+
+		[SerializeField]
+		Text remainingPush;
 
 		[SerializeField]
 		Text timer;

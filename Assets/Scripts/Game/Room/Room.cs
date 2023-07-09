@@ -50,6 +50,8 @@ namespace CGJ2023
 
 			itemSpawner = GetComponent<ItemSpawner>();
 
+			difficultyLevel = 0;
+			SetGoalByDifficulty();
 		}
 
 		void FixedUpdate()
@@ -58,6 +60,73 @@ namespace CGJ2023
 
 			TryCreatItems();
 		}
+
+		public void FinishCurrentPush()
+		{
+			RemainingPushCount -= 1;
+			if (RemainingPushCount == 0)
+			{
+				if (Score >= TargetScore)
+				{
+					difficultyLevel += 1;
+					SetGoalByDifficulty();
+				}
+				else
+				{
+					GameOver();
+				}
+			}
+		}
+
+		void SetGoalByDifficulty()
+		{
+			RemainingPushCount += 5 + difficultyLevel;
+			TargetScore += 50 + 10 * difficultyLevel;
+		}
+
+		void GameOver()
+		{
+			var gameScene = GetComponent<GameScene>();
+			if (gameScene != null)
+			{
+				gameScene.TransitToResultScene();
+			}
+			else
+			{
+				SceneManager.LoadScene("ResultScene");
+			}
+		}
+
+		int difficultyLevel;
+		public int RemainingPushCount
+		{
+			get => remainingPushCount;
+			private set
+			{
+				if (remainingPushCount != value)
+				{
+					remainingPushCount = value;
+					HasChanges = true;
+				}
+			}
+		}
+
+		int remainingPushCount;
+
+		public int TargetScore
+		{
+			get => targetScore;
+			private set
+			{
+				if (targetScore != value)
+				{
+					targetScore = value;
+					HasChanges = true;
+				}
+			}
+		}
+
+		int targetScore;
 
 		private void TryCreatItems()
 		{
@@ -136,15 +205,7 @@ namespace CGJ2023
 			if (availables.Count == 0)
 			{
 				Debug.Log("Game Over!");
-				var gameScene = GetComponent<GameScene>();
-				if (gameScene != null)
-				{
-					gameScene.TransitToResultScene();
-				}
-				else
-				{
-					SceneManager.LoadScene("ResultScene");
-				}
+				GameOver();
 
 				return;
 			}
