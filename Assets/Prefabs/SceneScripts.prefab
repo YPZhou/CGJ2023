@@ -52,7 +52,9 @@ MonoBehaviour:
   playerBallPrefab: {fileID: 1667926337549479351, guid: d02855948c67f8441a1c4a7df9b1a81f, type: 3}
   collectableBallPrefab: {fileID: 6342838931419933039, guid: c5333066ab14c764085b107252c91075, type: 3}
   redBallSprite: {fileID: 21300000, guid: 6e5d85ccfc8f9b94698eaf3a4fb61495, type: 3}
+  redBallReflectionSprite: {fileID: 21300000, guid: 5bb4722c48c8c3446b4bdd3b023cca30, type: 3}
   greenBallSprite: {fileID: 21300000, guid: 2f68d55c8f157d44ebdf13bae6445e37, type: 3}
+  greenBallReflectionSprite: {fileID: 21300000, guid: 39b1c481ddb07a14d87a0000b5eb1262, type: 3}
   indicatorPrefab: {fileID: 8971105740466128003, guid: db2782448afcb234ea782a0cf83552b7, type: 3}
 --- !u!114 &3052240067578542901
 MonoBehaviour:

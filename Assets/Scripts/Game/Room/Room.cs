@@ -248,13 +248,13 @@ namespace CGJ2023
 							{
 								collectableBall.BallColor = BallColor.Red;
 								collectableBall.GetComponent<SpriteRenderer>().sprite = redBallSprite;
-								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = redBallSprite;
+								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = redBallReflectionSprite;
 							}
 							else
 							{
 								collectableBall.BallColor = BallColor.Green;
 								collectableBall.GetComponent<SpriteRenderer>().sprite = greenBallSprite;
-								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = greenBallSprite;
+								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = greenBallReflectionSprite;
 							}
 							break;
 						case BallColor.Green:
@@ -262,13 +262,13 @@ namespace CGJ2023
 							{
 								collectableBall.BallColor = BallColor.Green;
 								collectableBall.GetComponent<SpriteRenderer>().sprite = greenBallSprite;
-								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = greenBallSprite;
+								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = greenBallReflectionSprite;
 							}
 							else
 							{
 								collectableBall.BallColor = BallColor.Red;
 								collectableBall.GetComponent<SpriteRenderer>().sprite = redBallSprite;
-								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = redBallSprite;
+								collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = redBallReflectionSprite;
 							}
 							break;
 						//case BallColor.Blue:
@@ -287,7 +287,7 @@ namespace CGJ2023
 				{
 					collectableBall.BallColor = ThemeColor;
 					collectableBall.GetComponent<SpriteRenderer>().sprite = greenBallSprite;
-					collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = greenBallSprite;
+					collectableBall.GetComponentsInChildren<SpriteRenderer>().First(renderer => renderer.gameObject.name == "Reflection").sprite = greenBallReflectionSprite;
 				}
 
 				return ball;
@@ -557,7 +557,13 @@ namespace CGJ2023
 		Sprite redBallSprite;
 
 		[SerializeField]
+		Sprite redBallReflectionSprite;
+
+		[SerializeField]
 		Sprite greenBallSprite;
+
+		[SerializeField]
+		Sprite greenBallReflectionSprite;
 
 		[SerializeField]
 		GameObject indicatorPrefab;
