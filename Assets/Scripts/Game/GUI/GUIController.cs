@@ -9,7 +9,12 @@ namespace CGJ2023
 	{
 		void Start()
 		{
-		}
+			var tipScal = Tips.transform.localScale;
+			tipScal = new Vector3(1 / tipScal.x, 1 / tipScal.y, 1 / tipScal.z);
+
+            TipsScore.transform.localScale = tipScal;
+			TipsRemainingPush.transform.localScale = tipScal;
+        }
 
 		void Update()
 		{
@@ -23,7 +28,8 @@ namespace CGJ2023
 			}
 
 			UpdateTimer();
-		}
+			UpdateTips();
+        }
 
 		void UpdateRemainingPush()
 		{
@@ -62,7 +68,28 @@ namespace CGJ2023
 			}
 		}
 
-		[SerializeField]
+        void UpdateTips()
+        {
+            shouUpRemain -= Time.deltaTime;
+			if (shouUpRemain < 0.0f)
+			{
+                Tips.SetActive(false);
+            }
+        }
+
+		public void ShouUpNextDifficultyTips(float second, float score, int remainingPush)
+		{
+            shouUpRemain = second;
+            TipsScore.enabled = true;
+            TipsRemainingPush.enabled = true;
+
+			TipsScore.text = $"目标得分\r\n{score:f1}" ;
+            TipsRemainingPush.text = $"剩余次数\r\n{remainingPush}"; ;
+
+            Tips.SetActive(true);
+        }
+
+        [SerializeField]
 		Text score;
 
 		[SerializeField]
@@ -79,5 +106,13 @@ namespace CGJ2023
 
 		[SerializeField]
 		Room room;
-	}
+
+		float shouUpRemain = -1;
+		[SerializeField]
+		GameObject Tips;
+        [SerializeField]
+        Text TipsScore;
+        [SerializeField]
+        Text TipsRemainingPush;
+    }
 }

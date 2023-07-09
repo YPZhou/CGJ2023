@@ -39,6 +39,8 @@ namespace CGJ2023
 		public ItemSpawner ItemSpawner => itemSpawner;
 		#endregion
 
+		GUIController gUIController = null;
+
 		void Start()
 		{
 			ThemeColor = BallColor.Green;
@@ -49,10 +51,11 @@ namespace CGJ2023
 			CreatePlayerBall();
 
 			itemSpawner = GetComponent<ItemSpawner>();
+            gUIController = GameObject.Find("Canvas").GetComponent<GUIController>();
 
-			difficultyLevel = 0;
+            difficultyLevel = 0;
 			SetGoalByDifficulty();
-		}
+        }
 
 		void FixedUpdate()
 		{
@@ -84,7 +87,8 @@ namespace CGJ2023
 			TargetScore += 5 + 5 * difficultyLevel;
 
 			DoCreateBalls();
-		}
+            gUIController.ShouUpNextDifficultyTips(2, TargetScore, RemainingPushCount);
+        }
 
 		void GameOver()
 		{
