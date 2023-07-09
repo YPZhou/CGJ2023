@@ -39,7 +39,10 @@ namespace CGJ2023
 		public ItemSpawner ItemSpawner => itemSpawner;
 		#endregion
 
-		GUIController gUIController = null;
+		[SerializeField]
+        GameObject[] borders;
+
+        GUIController gUIController = null;
 
 		void Start()
 		{
