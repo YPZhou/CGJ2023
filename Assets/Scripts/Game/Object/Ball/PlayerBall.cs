@@ -8,10 +8,13 @@ namespace CGJ2023
 	/// </summary>
 	public class PlayerBall : BaseBall
 	{
+		Transform DirectionRender;
+
 		protected override void StartCore()
 		{
 			canPush = true;
-		}
+            DirectionRender = transform.GetChild(2);
+        }
 
 		protected override void UpdateCore()
 		{
@@ -95,6 +98,7 @@ namespace CGJ2023
 				if (canPush)
 				{
 					room.FinishCurrentPush();
+
 				}
 			}
 
@@ -111,7 +115,12 @@ namespace CGJ2023
 					playerIcon.color = Color.red;
 				}
 			}
-		}
+
+			var render = DirectionRender.GetComponent<SpriteRenderer>().enabled = canPush;
+			var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            DirectionRender.LookAt(mousePos, Vector3.forward);
+
+        }
 
 		bool canPush;
 
