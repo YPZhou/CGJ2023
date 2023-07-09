@@ -116,7 +116,7 @@ namespace CGJ2023
 				}
 			}
 
-			var render = DirectionRender.GetComponent<SpriteRenderer>().enabled = canPush;
+			DirectionRender.GetComponentInChildren<SpriteRenderer>().enabled = canPush;
 			var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             DirectionRender.LookAt(mousePos, Vector3.forward);
 
