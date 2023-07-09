@@ -125,7 +125,7 @@ namespace CGJ2023
             distance = Mathf.Clamp(Mathf.Sqrt(distance), 0.4f, 0.8f);
 
             DirectionRender.localScale = new Vector3(DirectionRender.localScale.x, distance, DirectionRender.localScale.z);
-            DirectionRender.rotation = Quaternion.LookRotation(mousePos, Vector3.forward);
+            DirectionRender.rotation = Quaternion.LookRotation(mousePos - DirectionRender.position, Vector3.forward);
 
             Debug.Log($"MousePos:{mousePos} Distance: {distance}");
         }
