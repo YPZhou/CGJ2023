@@ -117,12 +117,12 @@ namespace CGJ2023
                 if (canPush)
                 {
                     playerIcon.transform.localPosition = new Vector3(0f, Mathf.Cos(Time.time * 5f) * 0.25f + 1.5f);
-                    playerIcon.color = Color.green;
+                    //playerIcon.color = Color.green;
                 }
                 else
                 {
                     playerIcon.transform.localPosition = new Vector3(0f, 1.5f);
-                    playerIcon.color = Color.red;
+                    //playerIcon.color = Color.red;
                 }
             }
 
