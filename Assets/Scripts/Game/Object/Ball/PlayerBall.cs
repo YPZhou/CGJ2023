@@ -94,7 +94,7 @@ namespace CGJ2023
                         rigidBody.AddForce(pushDirection.normalized * pushForce, ForceMode2D.Impulse);
                         canPush = false;
 
-                        DirectionRender.localScale = ArrowScale;
+                        //DirectionRender.localScale = ArrowScale;
                         DirectionRender.rotation = ArrowRot;
                     }
                 }
@@ -131,13 +131,7 @@ namespace CGJ2023
             if (canPush)
             {
                 var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                var distance = (mousePos - DirectionRender.position).magnitude - 10;
-                distance = Mathf.Clamp(Mathf.Sqrt(distance), 0.4f, Mathf.Sqrt(distance));
-
-                DirectionRender.localScale = new Vector3(DirectionRender.localScale.x, distance, DirectionRender.localScale.z);
                 DirectionRender.rotation = Quaternion.LookRotation(mousePos - DirectionRender.position, Vector3.forward);
-
-                Debug.Log($"MousePos:{mousePos} Distance: {distance}");
             }
         }
 
