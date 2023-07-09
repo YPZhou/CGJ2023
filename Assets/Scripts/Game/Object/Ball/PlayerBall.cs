@@ -131,7 +131,8 @@ namespace CGJ2023
             if (canPush)
             {
                 var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                DirectionRender.rotation = Quaternion.LookRotation(mousePos - DirectionRender.position, Vector3.forward);
+                var direction = new Vector3(mousePos.x, mousePos.y, 0f) - transform.position;
+                DirectionRender.localRotation = Quaternion.FromToRotation(Vector3.up, direction.normalized);
             }
         }
 
