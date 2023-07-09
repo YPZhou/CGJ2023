@@ -164,8 +164,8 @@ namespace CGJ2023
                 var color = ball.BallColor;
                 if (room.ThemeColor == color)
                 {
-                    room.OnCollectBall(color);
-                    ball.DestroyBall();
+                    room.OnCollectBall();
+                    ball.DestroyBall(isTouch: true);
                 }
                 else
                 {

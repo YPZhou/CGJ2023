@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BallColor: 0
   touchHint: {fileID: 3571607584636181863, guid: 42d81c6078be58446906cf5fb5901d00, type: 3}
+  chainHint: {fileID: 3571607584636181863, guid: 2e4db1d81a9c06d4684bfe8811a30067, type: 3}
   shootIcon: {fileID: 5251624538478191718}
 --- !u!58 &1148156838216352632
 CircleCollider2D:

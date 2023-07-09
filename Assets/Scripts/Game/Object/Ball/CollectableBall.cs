@@ -144,7 +144,7 @@ namespace CGJ2023
 			}
 		}
 
-		public void DestroyBall(bool shootBall = false)
+		public void DestroyBall(bool isTouch = false, bool isChain = false, bool shootBall = false)
 		{
 			if (shootBall)
 			{
@@ -157,10 +157,16 @@ namespace CGJ2023
 			{
 				isDestroying = true;
 
-				if (touchHint != null)
+				if (touchHint != null && isTouch)
 				{
 					var randomAngle = Random.Range(-45, 45);
 					Instantiate(touchHint, transform.position, Quaternion.AngleAxis(randomAngle, Vector3.back));
+				}
+
+				if (chainHint != null && isChain)
+				{
+					var randomAngle = Random.Range(-45, 45);
+					Instantiate(chainHint, transform.position, Quaternion.AngleAxis(randomAngle, Vector3.back));
 				}
 
 				if (GameObject.Find("SoundManager") != null)
@@ -242,8 +248,8 @@ namespace CGJ2023
 				{
 					if (ball.BallColor == room.ThemeColor)
 					{
-						room.OnCollectBall(ball.BallColor);
-						ball.DestroyBall();
+						room.OnCollectBall(isChain: true);
+						ball.DestroyBall(isChain: true);
 					}
 				}
 				else if ((IsAttached || ball.IsAttached) && BallColor == ball.BallColor)
@@ -272,6 +278,9 @@ namespace CGJ2023
 
 		[SerializeField]
 		GameObject touchHint;
+
+		[SerializeField]
+		GameObject chainHint;
 
 		[SerializeField]
 		SpriteRenderer shootIcon;

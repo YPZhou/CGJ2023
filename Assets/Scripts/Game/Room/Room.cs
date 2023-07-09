@@ -370,7 +370,7 @@ namespace CGJ2023
 				case BallColor.Red:
 					for (var i=0; i<redNum; i++)
 					{
-						OnCollectBall(BallColor.Red);
+						OnCollectBall();
 					}
 					redNum = 0;
 					break;
@@ -384,18 +384,18 @@ namespace CGJ2023
 				case BallColor.Green:
 					for (var i = 0; i < greenNum; i++)
 					{
-						OnCollectBall(BallColor.Green);
+						OnCollectBall();
 					}
 					greenNum = 0;
 					break;
 			}
 			for (var i = 0; i < redNum; i++)
 			{
-				OnCollectBall(BallColor.Red);
+				OnCollectBall();
 			}
 			for (var i = 0; i < greenNum; i++)
 			{
-				OnCollectBall(BallColor.Green);
+				OnCollectBall();
 			}
 			//for (var i = 0; i < blueNum; i++)
 			//{
@@ -424,7 +424,7 @@ namespace CGJ2023
 		
 		#endregion
 
-		public void OnCollectBall(BallColor color)
+		public void OnCollectBall(bool isChain = false)
 		{
 			//if (LastCollectedBallColor == color)
 			//{
@@ -441,6 +441,11 @@ namespace CGJ2023
 			//	ThemeScore += ScoreOfCombo;
 			//}
 			Score += 1;
+
+			if (isChain)
+			{
+				Score += 1;
+			}
 		}
 
 		public float ScoreOfCombo
