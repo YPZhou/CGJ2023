@@ -14,6 +14,11 @@ namespace CGJ2023
 
         [SerializeField]
         float nextSpawnTime;
+        public float NextSpawnTime
+        {
+            get => nextSpawnTime; 
+            set => nextSpawnTime = value;
+        }
 
         int probSum;
         List<int> probs = new List<int>();

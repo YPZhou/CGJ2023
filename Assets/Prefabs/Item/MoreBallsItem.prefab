@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 093754bd0c577a0428472d094f0de2eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06599708eaa67464592cec251cf0b721, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 8631057726050341430}
   - component: {fileID: 1148156838216352632}
   - component: {fileID: -1340363991372839652}
-  - component: {fileID: 8761042276847906768}
+  - component: {fileID: 4976135192184358466}
   m_Layer: 0
-  m_Name: ComboCountItem
+  m_Name: MoreBallsItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 093754bd0c577a0428472d094f0de2eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06599708eaa67464592cec251cf0b721, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -234,7 +234,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &8761042276847906768
+--- !u!114 &4976135192184358466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,8 +243,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6342838931419933039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 290c9cd88a8e0b24586f21cc49cfa9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 82318142471f21a43afe9adabef39612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawnProb: 10
-  comboxAddup: 0
+  SpeedModifier: 10

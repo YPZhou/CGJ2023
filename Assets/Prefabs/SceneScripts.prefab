@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5246966493993999190}
   - component: {fileID: 8341440620668689207}
+  - component: {fileID: 3052240067578542901}
   m_Layer: 0
   m_Name: SceneScripts
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8341440620668689207
 MonoBehaviour:
@@ -44,3 +45,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293d918dd915b441b8e45df19640e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectableBalls: []
+  BallBirthSpeedModifier: 0
+  playerBallPrefab: {fileID: 1667926337549479351, guid: d02855948c67f8441a1c4a7df9b1a81f, type: 3}
+  collectableBallPrefab: {fileID: 6342838931419933039, guid: c5333066ab14c764085b107252c91075, type: 3}
+  indicatorPrefab: {fileID: 8971105740466128003, guid: db2782448afcb234ea782a0cf83552b7, type: 3}
+--- !u!114 &3052240067578542901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3433772103135460962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9a707cd58bffd4082a10e99353f10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enabled: 1
+  itemSpawnTime: 30
+  nextSpawnTime: 0
+  itemPrefabas:
+  - {fileID: 6342838931419933039, guid: c73bdaed05806b54ca82b52d62bd4617, type: 3}
+  - {fileID: 6342838931419933039, guid: 016bbe3110ae0934cbeeed60f352116a, type: 3}
+  - {fileID: 6342838931419933039, guid: e04669463bcde664ab10c7b6eb0f7259, type: 3}
+  - {fileID: 6342838931419933039, guid: 8d64373df2d4eec48aeafe43f0fc34b9, type: 3}
+  - {fileID: 6342838931419933039, guid: 1b9d446aef247d14eba12cec43f06feb, type: 3}
+  - {fileID: 6342838931419933039, guid: f016d863ebbf5a645b39fb63fd6b1e99, type: 3}

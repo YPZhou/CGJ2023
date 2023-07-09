@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static CGJ2023.Enums;
@@ -22,7 +21,7 @@ namespace CGJ2023
 		const int birthCountChangeDelta = 10;
 		int birthTimes = 0;
 		float spendTime = 0;
-		const float Top = 4.7f;
+		const float Top = 3.5f;
 		const float Bottom = -4.7f;
 		const float Left = -8.6f;
 		const float Right = 8.6f;
@@ -31,10 +30,13 @@ namespace CGJ2023
 		int PositionsPerLine = Mathf.FloorToInt((Right - Left) / ((BallRadius + RandomRange) * 2)) + 1;
 		int positionsPerColumn = Mathf.FloorToInt((Top - Bottom) / ((BallRadius + RandomRange) * 2)) + 1;
 		List<GameObject> availableIndicators = new List<GameObject>();
+
+        public int BallBirthSpeedModifier = 0;
         #endregion
 
         #region item management
-        ItemSpawner ItemSpawner = null;
+        ItemSpawner itemSpawner = null;
+        public ItemSpawner ItemSpawner => itemSpawner;
         #endregion
 
         void Start()
@@ -46,16 +48,8 @@ namespace CGJ2023
             InitAvailablePositions();
             CreatePlayerBall();
 
-            ItemSpawner = GetComponent<ItemSpawner>();
+            itemSpawner = GetComponent<ItemSpawner>();
 
-        }
-
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                SceneManager.LoadScene("ResultScene");
-            }
         }
 
         void FixedUpdate()
@@ -67,7 +61,7 @@ namespace CGJ2023
 
         private void TryCreatItems()
         {
-            if (ItemSpawner.CanSpawnNow())
+            if (itemSpawner.CanSpawnNow())
             {
                 var availables = GetAvailablePositions();
                 if (availables.Count == 0)
@@ -77,7 +71,7 @@ namespace CGJ2023
 
                 var index = availables.ElementAt<int>(random.Next(availables.Count));
                 var pos = GetRandomPositionByIndex(index, true);
-                ItemSpawner.SpawnItem(pos);
+                itemSpawner.SpawnItem(pos);
                 availables.Remove(index);
             }
         }
@@ -86,32 +80,36 @@ namespace CGJ2023
 
         void CreatePlayerBall()
         {
-            var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Player.prefab", typeof(GameObject)) as GameObject;
-            PlayerBall = GameObject.Instantiate(collentableBallPrefab, new Vector2(0, 0), Quaternion.identity);
-            PlayerBall.name = "PlayerBall";
+            if (playerBallPrefab != null)
+            {
+                PlayerBall = GameObject.Instantiate(playerBallPrefab, new Vector2(0, 0), Quaternion.identity);
+                PlayerBall.name = "PlayerBall";
+            }
         }
 
         void InitAvailablePositions()
         {
-            var availableIndicator = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/AvailableIndicator.prefab", typeof(GameObject)) as GameObject;
-
-            for (var i = 0; i < PositionsPerLine; i++)
+            if (indicatorPrefab != null)
             {
-                for (var j = 0; j < positionsPerColumn; j++)
+                for (var i = 0; i < PositionsPerLine; i++)
                 {
-                    var position = GetRandomPositionByIndex(i * PositionsPerLine + j, false);
-                    var indicator = GameObject.Instantiate(availableIndicator, position, Quaternion.identity);
-                    indicator.name = string.Format("Indicator_{0}_{1}", i, j);
-                    indicator.transform.localScale = new Vector3((BallRadius + RandomRange) * 2, (BallRadius + RandomRange) * 2, 1);
-                    indicator.GetComponent<AvailableIndicator>().Index = i * PositionsPerLine + j;
-                    availableIndicators.Add(indicator);
+                    for (var j = 0; j < positionsPerColumn; j++)
+                    {
+                        var position = GetRandomPositionByIndex(i * PositionsPerLine + j, false);
+                        var indicator = GameObject.Instantiate(indicatorPrefab, position, Quaternion.identity);
+                        indicator.name = string.Format("Indicator_{0}_{1}", i, j);
+                        indicator.transform.localScale = new Vector3((BallRadius + RandomRange) * 2, (BallRadius + RandomRange) * 2, 1);
+                        indicator.GetComponent<AvailableIndicator>().Index = i * PositionsPerLine + j;
+                        availableIndicators.Add(indicator);
+                    }
                 }
             }
         }
 
         void TryCreateBalls()
         {
-            spendTime += Time.deltaTime;
+            spendTime += Time.deltaTime * (1+(float)BallBirthSpeedModifier/100);
+
             if (birthTimes < (spendTime / birthRate))
             {
                 DoCreateBalls();
@@ -138,7 +136,16 @@ namespace CGJ2023
             if (availables.Count == 0)
             {
 				Debug.Log("Game Over!");
-				SceneManager.LoadScene("ResultScene");
+                var gameScene = GetComponent<GameScene>();
+                if (gameScene != null)
+                {
+                    gameScene.TransitToResultScene();
+                }
+                else
+                {
+                    SceneManager.LoadScene("ResultScene");
+                }
+
 				return;
             }
             for (var i = 0; i < CurrentBirthRate && availables.Count > 0; i++)
@@ -152,54 +159,59 @@ namespace CGJ2023
         GameObject DoCreateOneBall(int index)
         {
             var position = GetRandomPositionByIndex(index, true);
-            var collentableBallPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Ball.prefab", typeof(GameObject)) as GameObject;
 
-            var ball = GameObject.Instantiate(collentableBallPrefab, position, Quaternion.identity);
-            collectableBalls.Add(ball);
-            var collectableBall = ball.GetComponent<CollectableBall>();
-            collectableBall.InitializeBall();
-
-            if (Random.Range(0.0f, 1.0f) > 0.6)
+            if (collectableBallPrefab != null)
             {
-                switch (ThemeColor)
+                var ball = GameObject.Instantiate(collectableBallPrefab, position, Quaternion.identity);
+                collectableBalls.Add(ball);
+                var collectableBall = ball.GetComponent<CollectableBall>();
+                collectableBall.InitializeBall();
+
+                if (Random.Range(0.0f, 1.0f) > 0.6)
                 {
-                    case BallColor.Red:
-                        if (Random.Range(0.0f, 1.0f) > 0.5f)
-                        {
-                            collectableBall.BallColor = BallColor.Blue;
-                        }
-                        else
-                        {
-                            collectableBall.BallColor = BallColor.Green;
-                        }
-                        break;
-                    case BallColor.Green:
-                        if (Random.Range(0.0f, 1.0f) > 0.5f)
-                        {
-                            collectableBall.BallColor = BallColor.Blue;
-                        }
-                        else
-                        {
-                            collectableBall.BallColor = BallColor.Red;
-                        }
-                        break;
-                    case BallColor.Blue:
-                        if (Random.Range(0.0f, 1.0f) > 0.5f)
-                        {
-                            collectableBall.BallColor = BallColor.Red;
-                        }
-                        else
-                        {
-                            collectableBall.BallColor = BallColor.Green;
-                        }
-                        break;
+                    switch (ThemeColor)
+                    {
+                        case BallColor.Red:
+                            if (Random.Range(0.0f, 1.0f) > 0.5f)
+                            {
+                                collectableBall.BallColor = BallColor.Blue;
+                            }
+                            else
+                            {
+                                collectableBall.BallColor = BallColor.Green;
+                            }
+                            break;
+                        case BallColor.Green:
+                            if (Random.Range(0.0f, 1.0f) > 0.5f)
+                            {
+                                collectableBall.BallColor = BallColor.Blue;
+                            }
+                            else
+                            {
+                                collectableBall.BallColor = BallColor.Red;
+                            }
+                            break;
+                        case BallColor.Blue:
+                            if (Random.Range(0.0f, 1.0f) > 0.5f)
+                            {
+                                collectableBall.BallColor = BallColor.Red;
+                            }
+                            else
+                            {
+                                collectableBall.BallColor = BallColor.Green;
+                            }
+                            break;
+                    }
                 }
-            }
-            else
-            {
-                collectableBall.BallColor = ThemeColor;
-            }
-            return ball;
+                else
+                {
+                    collectableBall.BallColor = ThemeColor;
+                }
+
+				return ball;
+			}
+
+            return null;
         }
 
         Vector2 GetRandomPositionByIndex(int index, bool random)
@@ -322,7 +334,7 @@ namespace CGJ2023
 
             var index = availables.ElementAt<int>(random.Next(availables.Count));
             var pos = GetRandomPositionByIndex(index, true);
-            ItemSpawner.SpawnItem(pos);
+            itemSpawner.SpawnItem(pos);
             availables.Remove(index);
         }
 
@@ -451,5 +463,14 @@ namespace CGJ2023
         {
             HasChanges = false;
         }
+
+        [SerializeField]
+        GameObject playerBallPrefab;
+
+        [SerializeField]
+        GameObject collectableBallPrefab;
+
+        [SerializeField]
+        GameObject indicatorPrefab;
     }
 }

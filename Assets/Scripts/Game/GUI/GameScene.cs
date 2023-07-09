@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace CGJ2023
 {
-	public class ResultScene : MonoBehaviour
+	public class GameScene : MonoBehaviour
 	{
 		void OnEnable()
 		{
@@ -49,10 +49,18 @@ namespace CGJ2023
 				}
 			}
 
-			SceneManager.LoadScene("TitleScene");
+			SceneManager.LoadScene("ResultScene");
 		}
 
-		public void BackToTitle()
+		void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				TransitToResultScene();
+			}
+		}
+
+		public void TransitToResultScene()
 		{
 			StartCoroutine(FadeOutAndLoadScene(0.25f));
 		}

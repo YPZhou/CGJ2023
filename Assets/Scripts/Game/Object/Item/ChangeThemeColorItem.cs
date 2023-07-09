@@ -19,9 +19,8 @@ namespace CGJ2023
 
         protected override string DebugString => $"ChangeThemeColorItem: Set theme color to {color}";
 
-        public override void ApplyEffect(PlayerBall player)
+        protected override void ApplyEffectCore(PlayerBall player)
         {
-            base.ApplyEffect(player);
 			room.ThemeColor = color;
         }
 
