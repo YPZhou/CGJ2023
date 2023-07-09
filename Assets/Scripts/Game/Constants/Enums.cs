@@ -6,7 +6,7 @@ namespace CGJ2023
 		{
 			Red,
 			Green,
-			Blue,
+			//Blue,
 			MAX
 		}
 

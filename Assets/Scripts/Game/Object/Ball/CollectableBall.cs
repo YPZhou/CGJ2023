@@ -44,9 +44,9 @@ namespace CGJ2023
 				case BallColor.Red:
 					spriteRenderer.color = new Color(1f, 0f, 0f, spriteRenderer.color.a);
 					break;
-				case BallColor.Blue:
-					spriteRenderer.color = new Color(0f, 0f, 1f, spriteRenderer.color.a);
-					break;
+				//case BallColor.Blue:
+				//	spriteRenderer.color = new Color(0f, 0f, 1f, spriteRenderer.color.a);
+				//	break;
 				case BallColor.Green:
 					spriteRenderer.color = new Color(0f, 1f, 0f, spriteRenderer.color.a);
 					break;
@@ -66,7 +66,7 @@ namespace CGJ2023
 					{
 						if (ball != null)
 						{
-							//if (ball.BallColor == BallColor)
+							if (ball.BallColor == BallColor)
 							{
 								if (ball.shouldDestroy)
 								{
@@ -246,14 +246,13 @@ namespace CGJ2023
 			{
 				if (IsShooting)
 				{
-					if (ball.BallColor == BallColor.Red)
+					if (ball.BallColor == room.ThemeColor)
 					{
 						room.OnCollectBall(ball.BallColor);
 						ball.DestroyBall();
 					}
 				}
-				else if ((IsAttached || ball.IsAttached))
-					//&& BallColor == ball.BallColor)
+				else if ((IsAttached || ball.IsAttached) && BallColor == ball.BallColor)
 				{
 					var playerBall = GameObject.Find("PlayerBall")?.GetComponent<PlayerBall>();
 					if (playerBall != null)

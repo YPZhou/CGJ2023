@@ -230,7 +230,7 @@ namespace CGJ2023
 						case BallColor.Red:
 							if (Random.Range(0.0f, 1.0f) > 0.5f)
 							{
-								collectableBall.BallColor = BallColor.Blue;
+								collectableBall.BallColor = BallColor.Red;
 							}
 							else
 							{
@@ -240,23 +240,23 @@ namespace CGJ2023
 						case BallColor.Green:
 							if (Random.Range(0.0f, 1.0f) > 0.5f)
 							{
-								collectableBall.BallColor = BallColor.Blue;
-							}
-							else
-							{
-								collectableBall.BallColor = BallColor.Red;
-							}
-							break;
-						case BallColor.Blue:
-							if (Random.Range(0.0f, 1.0f) > 0.5f)
-							{
-								collectableBall.BallColor = BallColor.Red;
-							}
-							else
-							{
 								collectableBall.BallColor = BallColor.Green;
 							}
+							else
+							{
+								collectableBall.BallColor = BallColor.Red;
+							}
 							break;
+						//case BallColor.Blue:
+						//	if (Random.Range(0.0f, 1.0f) > 0.5f)
+						//	{
+						//		collectableBall.BallColor = BallColor.Red;
+						//	}
+						//	else
+						//	{
+						//		collectableBall.BallColor = BallColor.Green;
+						//	}
+						//	break;
 					}
 				}
 				else
@@ -305,9 +305,9 @@ namespace CGJ2023
 				case BallColor.Red:
 					OnRedTheamScoreFull();
 					break;
-				case BallColor.Blue:
-					OnBlueTheamScoreFull();
-					break;
+				//case BallColor.Blue:
+				//	OnBlueTheamScoreFull();
+				//	break;
 				case BallColor.Green:
 					OnGreenTheamScoreFull();
 					break;
@@ -326,9 +326,9 @@ namespace CGJ2023
 					case BallColor.Red:
 						redNum += 1;
 						break;
-					case BallColor.Blue:
-						blueNum += 1;
-						break;
+					//case BallColor.Blue:
+					//	blueNum += 1;
+					//	break;
 					case BallColor.Green:
 						greenNum += 1;
 						break;
@@ -351,13 +351,13 @@ namespace CGJ2023
 					}
 					redNum = 0;
 					break;
-				case BallColor.Blue:
-					for (var i = 0; i < blueNum; i++)
-					{
-						OnCollectBall(BallColor.Blue);
-					}
-					blueNum = 0;
-					break;
+				//case BallColor.Blue:
+				//	for (var i = 0; i < blueNum; i++)
+				//	{
+				//		OnCollectBall(BallColor.Blue);
+				//	}
+				//	blueNum = 0;
+				//	break;
 				case BallColor.Green:
 					for (var i = 0; i < greenNum; i++)
 					{
@@ -374,10 +374,10 @@ namespace CGJ2023
 			{
 				OnCollectBall(BallColor.Green);
 			}
-			for (var i = 0; i < blueNum; i++)
-			{
-				OnCollectBall(BallColor.Blue);
-			}
+			//for (var i = 0; i < blueNum; i++)
+			//{
+			//	OnCollectBall(BallColor.Blue);
+			//}
 		}
 
 		void OnGreenTheamScoreFull()
