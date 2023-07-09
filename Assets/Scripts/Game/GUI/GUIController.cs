@@ -9,6 +9,7 @@ namespace CGJ2023
 	{
 		void Start()
 		{
+			Tips.SetActive(false);
 			var tipScal = Tips.transform.localScale;
 			tipScal = new Vector3(1 / tipScal.x, 1 / tipScal.y, 1 / tipScal.z);
 

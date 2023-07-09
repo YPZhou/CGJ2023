@@ -805,7 +805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &608558179
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1420,6 +1420,9 @@ MonoBehaviour:
   timer: {fileID: 253455271}
   combo: {fileID: 630588720}
   room: {fileID: 851769879}
+  Tips: {fileID: 608558178}
+  TipsScore: {fileID: 214200911}
+  TipsRemainingPush: {fileID: 683078314}
 --- !u!114 &851769879 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8341440620668689207, guid: a67cf2fa466ef554da4210af1d54e9c2, type: 3}
