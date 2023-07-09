@@ -10,11 +10,15 @@ namespace CGJ2023
     public class PlayerBall : BaseBall
     {
         Transform DirectionRender;
+        Vector3 ArrowScale;
+        Quaternion ArrowRot;
 
         protected override void StartCore()
         {
             canPush = true;
             DirectionRender = transform.GetChild(2);
+            ArrowScale = DirectionRender.localScale;
+            ArrowRot = DirectionRender.rotation;
         }
 
         protected override void UpdateCore()
@@ -89,6 +93,9 @@ namespace CGJ2023
                         var pushDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
                         rigidBody.AddForce(pushDirection.normalized * pushForce, ForceMode2D.Impulse);
                         canPush = false;
+
+                        DirectionRender.localScale = ArrowScale;
+                        DirectionRender.rotation = ArrowRot;
                     }
                 }
 
@@ -120,14 +127,18 @@ namespace CGJ2023
             }
 
             DirectionRender.GetComponentInChildren<SpriteRenderer>().enabled = canPush;
-            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var distance = (mousePos - DirectionRender.position).magnitude - 10;
-            distance = Mathf.Clamp(Mathf.Sqrt(distance), 0.4f, 0.8f);
 
-            DirectionRender.localScale = new Vector3(DirectionRender.localScale.x, distance, DirectionRender.localScale.z);
-            DirectionRender.rotation = Quaternion.LookRotation(mousePos, Vector3.forward);
+            if (canPush)
+            {
+                var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var distance = (mousePos - DirectionRender.position).magnitude - 10;
+                distance = Mathf.Clamp(Mathf.Sqrt(distance), 0.4f, Mathf.Sqrt(distance));
 
-            Debug.Log($"MousePos:{mousePos} Distance: {distance}");
+                DirectionRender.localScale = new Vector3(DirectionRender.localScale.x, distance, DirectionRender.localScale.z);
+                DirectionRender.LookAt(mousePos, Vector3.forward);
+                //Debug.Log($"MousePos:{mousePos} Distance: {distance}");
+            }
+            
         }
 
         bool canPush;
