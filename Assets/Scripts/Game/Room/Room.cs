@@ -80,6 +80,14 @@ namespace CGJ2023
 					GameOver();
 				}
 			}
+			else
+			{
+				var nonAttachedBalls = collectableBalls.Select(obj => obj.GetComponent<CollectableBall>()).Where(ball => !ball.IsAttached);
+				if (!nonAttachedBalls.Any())
+				{
+					DoCreateBalls();
+				}
+			}
 		}
 
 		void SetGoalByDifficulty()
