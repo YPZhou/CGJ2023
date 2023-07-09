@@ -56,8 +56,13 @@ namespace CGJ2023
 		{
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
-				StartCoroutine(FadeOutAndLoadScene(0.25f));
+				TransitToResultScene();
 			}
+		}
+
+		public void TransitToResultScene()
+		{
+			StartCoroutine(FadeOutAndLoadScene(0.25f));
 		}
 
 		[SerializeField]

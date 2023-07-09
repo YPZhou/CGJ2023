@@ -136,7 +136,16 @@ namespace CGJ2023
             if (availables.Count == 0)
             {
 				Debug.Log("Game Over!");
-				SceneManager.LoadScene("ResultScene");
+                var gameScene = GetComponent<GameScene>();
+                if (gameScene != null)
+                {
+                    gameScene.TransitToResultScene();
+                }
+                else
+                {
+                    SceneManager.LoadScene("ResultScene");
+                }
+
 				return;
             }
             for (var i = 0; i < CurrentBirthRate && availables.Count > 0; i++)
