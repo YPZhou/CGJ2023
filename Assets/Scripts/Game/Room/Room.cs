@@ -41,7 +41,7 @@ namespace CGJ2023
 
 		void Start()
 		{
-			ThemeColor = BallColor.Red;
+			ThemeColor = BallColor.Green;
 			Score = 0;
 			ThemeScore = 0;
 

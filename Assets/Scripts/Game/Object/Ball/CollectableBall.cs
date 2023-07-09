@@ -242,6 +242,27 @@ namespace CGJ2023
 				}
 			}
 
+			if (ball != null)
+			{
+				if (IsShooting)
+				{
+					if (ball.BallColor == BallColor.Red)
+					{
+						room.OnCollectBall(ball.BallColor);
+						ball.DestroyBall();
+					}
+				}
+				else if ((IsAttached || ball.IsAttached))
+					//&& BallColor == ball.BallColor)
+				{
+					var playerBall = GameObject.Find("PlayerBall")?.GetComponent<PlayerBall>();
+					if (playerBall != null)
+					{
+						ball.AttachTo(playerBall);
+					}
+				}
+			}
+
 			//if (ball != null && !ball.IsAttached)
 			//{
 			//	var rigidBody = ball.GetComponent<Rigidbody2D>();
